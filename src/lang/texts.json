@@ -1,0 +1,21 @@
+{
+  "es": {
+    "Inputs": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Título",
+        "placeholder": "ej: Mi nota"
+      },
+      {
+        "id": "content",
+        "type": "text",
+        "label": "Contenido",
+        "placeholder": "Escribe aquí...",
+        "multiline": true,
+        "minRows": 4,
+        "maxRows": 4
+      }
+    ]
+  }
+}

@@ -59,11 +59,17 @@ const App = () => {
   };
 
   const onDelete = (e) => {
-    const { id } = e.target;
+    let node = e.target;
+    if (e.target.nodeName.toLowerCase() === "path") node = e.target.parentNode;
+    const { id } = node;
     const parsedId = id.split("-");
     const numberId = Number(parsedId[1]);
     setCount(count - 1);
-    notes.splice(numberId, 1);
+    notes[numberId].deleted = true;
+    setTimeout(() => {
+      setCount(count + 1);
+      notes.splice(numberId, 1);
+    }, 500);
   };
 
   const [count, setCount] = useState(0);
@@ -150,7 +156,9 @@ const App = () => {
                     width: "100%",
                     marginTop: i > 0 ? "20px" : "0",
                     padding: "1.3rem",
-                    animation: "scale 0.5s ease",
+                    animation: item.deleted
+                      ? "remove 0.5s ease"
+                      : "scale 0.5s ease",
                   }}
                 >
                   <Container

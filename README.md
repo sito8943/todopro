@@ -1,2 +1,3 @@
-# mern-client
-MongoDB Express React Node client
+# Todo-app
+
+Create, Modify and Delete your notes

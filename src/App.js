@@ -32,7 +32,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Button,
   IconButton,
   Typography,
   TextField,
@@ -191,9 +190,7 @@ const App = () => {
 
   const [tab, setTab] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setTab(newValue);
-  };
+  const handleChange = (event, newValue) => setTab(newValue);
 
   const handleForm = (d) => {
     const { title, content, id } = d;
@@ -264,6 +261,7 @@ const App = () => {
   const showAbout = () => {};
 
   const [modeFixed, setModeFixed] = useState(false);
+  const [tabsFixed, setTabsFixed] = useState(false);
   const [showAddNote, setShowAddNote] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
@@ -284,6 +282,13 @@ const App = () => {
           setShowAddNote(false);
           setShowForm(false);
         } else setShowAddNote(true);
+      }
+      //* checking for tabs
+      const tabsDOM = document.getElementById("tabs");
+      if (tabsDOM) {
+        const isTabsVisible = inViewport(tabsDOM);
+        if (isTabsVisible) setTabsFixed(false);
+        else setTabsFixed(true);
       }
     },
     [setModeFixed, setShowAddNote]
@@ -331,7 +336,7 @@ const App = () => {
               ...radialButton,
               marginTop: 0,
               position: modeFixed ? "fixed" : "relative",
-              top: modeFixed ? "20px" : 0,
+              top: modeFixed ? "55px" : 0,
               right: modeFixed ? "20px" : "20px",
               zIndex: 20,
               transition: "top 500ms ease",
@@ -344,7 +349,7 @@ const App = () => {
               ...radialButton,
               marginTop: 0,
               position: "fixed",
-              top: "20px",
+              top: "55px",
               right: "70px",
               zIndex: showAddNote ? 20 : -1,
               transition: "all 500ms ease",
@@ -357,13 +362,14 @@ const App = () => {
 
         <TabView
           value={tab}
+          onFixedTabs={tabsFixed}
           onChange={handleChange}
           tabs={noteBoxes.map((item, i) => item.title)}
           content={noteBoxes.map((item, i) => (
             <Box
               key={i}
               sx={{
-                margin: "10px 20px",
+                margin: "10px 0",
                 display: "flex",
                 flexDirection: { md: "row", xs: "column" },
               }}

@@ -8,6 +8,8 @@
       "Placeholder": "ej: Mis notas"
     },
     "Tooltips": {
+      "ExpandFab": "Mostrar botones",
+      "HideFab": "Ocultar botones",
       "AddNoteBox": "Agregar caja de notas",
       "DeleteNoteBox": "Eliminar caja de notas",
       "DeleteNote": "Eliminar nota",

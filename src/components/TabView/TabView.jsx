@@ -6,7 +6,7 @@
 import PropTypes from "prop-types";
 
 // @mui components
-import { Tabs, Tab, Box } from "@mui/material";
+import { useTheme, Tabs, Tab, Box } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,11 +38,13 @@ function a11yProps(index) {
 }
 
 const TabView = (props) => {
-  const { content, tabs, value, onChange } = props;
+  const theme = useTheme();
+
+  const { content, tabs, value, onChange, onFixedTabs } = props;
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }} id="tabs">
         <Tabs
           textColor="primary"
           indicatorColor="primary"
@@ -50,6 +52,14 @@ const TabView = (props) => {
           onChange={onChange}
           variant="scrollable"
           scrollButtons="auto"
+          sx={{
+            transition: "all 500ms ease",
+            position: onFixedTabs ? "fixed" : "relative",
+            zIndex: 15,
+            top: 0,
+            width: "100%",
+            background: theme.palette.background.default,
+          }}
         >
           {tabs.map((item, i) => (
             <Tab
@@ -71,6 +81,7 @@ const TabView = (props) => {
 };
 
 TabView.defaultProps = {
+  onFixedTabs: false,
   onChange: undefined,
   value: 0,
 };
@@ -78,6 +89,7 @@ TabView.defaultProps = {
 TabView.propTypes = {
   content: PropTypes.arrayOf(PropTypes.node).isRequired,
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onFixedTabs: PropTypes.bool,
   value: PropTypes.number,
   onChange: PropTypes.func,
 };

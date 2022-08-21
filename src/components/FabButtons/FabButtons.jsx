@@ -1,3 +1,5 @@
+import { useState, useCallback } from "react";
+
 import PropTypes from "prop-types";
 
 // @emotion
@@ -13,6 +15,8 @@ import { useLanguage } from "../../context/LanguageProvider";
 import InfoIcon from "@mui/icons-material/Info";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import SettingsIcon from "@mui/icons-material/Settings";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // @mui components
 import { Tooltip } from "@mui/material";
@@ -20,9 +24,14 @@ import { Tooltip } from "@mui/material";
 // own components
 import RadialButton from "../RadialButton/RadialButton";
 
+// style
+import "./style.css";
+
 const FabButtons = (props) => {
   const { onAdd, onSettings, onAbout } = props;
   const { languageState } = useLanguage();
+
+  const [showFab, setShowFab] = useState(false);
 
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -44,6 +53,8 @@ const FabButtons = (props) => {
     },
   };
 
+  const toggleFab = () => setShowFab(!showFab);
+
   return (
     <motion.div
       variants={container}
@@ -59,7 +70,7 @@ const FabButtons = (props) => {
         zIndex: 20,
       })}
     >
-      <motion.div variants={ulItem} viewport={{ once: true }}>
+      <motion.div className={showFab ? "appear" : "hidden"}>
         <Tooltip
           title={languageState.texts.Tooltips.AddNoteBox}
           placement="left"
@@ -67,14 +78,29 @@ const FabButtons = (props) => {
           <RadialButton onClick={onAdd} icon={<AddBoxIcon />} />
         </Tooltip>
       </motion.div>
-      <motion.div variants={ulItem} viewport={{ once: true }}>
+      <motion.div className={showFab ? "appear" : "hidden"}>
         <Tooltip title={languageState.texts.Tooltips.Settings} placement="left">
           <RadialButton onClick={onSettings} icon={<SettingsIcon />} />
         </Tooltip>
       </motion.div>
-      <motion.div variants={ulItem} viewport={{ once: true }}>
+      <motion.div className={showFab ? "appear" : "hidden"}>
         <Tooltip title={languageState.texts.Tooltips.About} placement="left">
           <RadialButton onClick={onAbout} icon={<InfoIcon />} />
+        </Tooltip>
+      </motion.div>
+      <motion.div variants={ulItem} viewport={{ once: true }}>
+        <Tooltip
+          title={
+            !showFab
+              ? languageState.texts.Tooltips.ExpandFab
+              : languageState.texts.Tooltips.HideFab
+          }
+          placement="left"
+        >
+          <RadialButton
+            onClick={toggleFab}
+            icon={showFab ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+          />
         </Tooltip>
       </motion.div>
     </motion.div>

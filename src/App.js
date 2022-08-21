@@ -1,7 +1,8 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 
-//
+// in-viewport
+import inViewport from "in-viewport";
 
 // @emotion
 import { css } from "@emotion/css";
@@ -16,6 +17,8 @@ import IosShareIcon from "@mui/icons-material/IosShare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 // @mui components
 import {
@@ -32,6 +35,7 @@ import {
 
 // theme
 import dark from "./assets/theme/dark";
+import light from "./assets/theme/light";
 
 // own components
 import TabView from "./components/TabView/TabView";
@@ -48,6 +52,7 @@ const App = () => {
   const { languageState } = useLanguage();
 
   const [editing, setEditing] = useState(false);
+  const [mode, setMode] = useState(false);
 
   const noteBoxesReducer = (noteBoxesState, action) => {
     const { type } = action;
@@ -250,8 +255,29 @@ const App = () => {
 
   const showAbout = () => {};
 
+  const [modeFixed, setModeFixed] = useState(false);
+
+  const onScroll = useCallback(
+    (e) => {
+      const titleApp = document.getElementById("app-title");
+      if (titleApp) {
+        const isTitleVisible = inViewport(titleApp);
+        if (isTitleVisible) setModeFixed(false);
+        else setModeFixed(true);
+      }
+    },
+    [setModeFixed]
+  );
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [onScroll]);
+
   return (
-    <ThemeProvider theme={dark}>
+    <ThemeProvider theme={mode ? light : dark}>
       <CssBaseline />
       {/*<Notification
         visible={showNotification}
@@ -272,7 +298,32 @@ const App = () => {
           width: "100vw",
         }}
       >
-        <Typography variant="h4">{languageState.texts.Title}</Typography>
+        <SitoContainer
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ width: "100%", marginLeft: "20px" }}
+        >
+          <Typography id="app-title" variant="h4">
+            {languageState.texts.Title}
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              ...radialButton,
+              marginTop: 0,
+              position: modeFixed ? "fixed" : "relative",
+              top: modeFixed ? "20px" : 0,
+              right: modeFixed ? "20px" : "20px",
+              zIndex: 20,
+              transition: "top 500ms ease",
+            }}
+            onClick={() => setMode(!mode)}
+          >
+            {mode ? <DarkModeIcon /> : <LightModeIcon />}
+          </Button>
+        </SitoContainer>
+
         <TabView
           value={tab}
           onChange={handleChange}
@@ -333,7 +384,6 @@ const App = () => {
                       placeholder={item.placeholder}
                       sx={inputSx[i]}
                       {...register(item.id)}
-                      required
                     />
                     {i === 0 && (
                       <>

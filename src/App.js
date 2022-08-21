@@ -45,12 +45,13 @@ import light from "./assets/theme/light";
 // own components
 import TabView from "./components/TabView/TabView";
 import FabButtons from "./components/FabButtons/FabButtons";
+import RadialButton from "./components/RadialButton/RadialButton";
 
 // contexts
 import { useLanguage } from "./context/LanguageProvider";
 
 // styles
-import { radialButton } from "./components/FabButtons/style";
+import { radialButton } from "./components/RadialButton/style";
 
 const App = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -325,9 +326,7 @@ const App = () => {
           <Typography id="app-title" variant="h4">
             {languageState.texts.Title}
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
+          <RadialButton
             sx={{
               ...radialButton,
               marginTop: 0,
@@ -338,12 +337,9 @@ const App = () => {
               transition: "top 500ms ease",
             }}
             onClick={toggleMode}
-          >
-            {mode ? <DarkModeIcon /> : <LightModeIcon />}
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
+            icon={mode ? <DarkModeIcon /> : <LightModeIcon />}
+          />
+          <RadialButton
             sx={{
               ...radialButton,
               marginTop: 0,
@@ -355,9 +351,8 @@ const App = () => {
               transform: showAddNote ? "scale(1)" : "scale(0)",
             }}
             onClick={() => setShowForm(true)}
-          >
-            <NoteAddIcon />
-          </Button>
+            icon={<NoteAddIcon />}
+          />
         </SitoContainer>
 
         <TabView
@@ -399,24 +394,19 @@ const App = () => {
                     }}
                   />
                   <Tooltip title={languageState.texts.Tooltips.ShareNoteBox}>
-                    <Button
+                    <RadialButton
                       onClick={shareNoteBox}
-                      variant="contained"
-                      color="primary"
                       sx={{ ...radialButton, marginTop: 0, marginLeft: "20px" }}
-                    >
-                      <IosShareIcon />
-                    </Button>
+                      icon={<IosShareIcon />}
+                    />
                   </Tooltip>
                   <Tooltip title={languageState.texts.Tooltips.DeleteNoteBox}>
-                    <Button
+                    <RadialButton
                       onClick={() => deleteNoteBox(i)}
-                      variant="contained"
-                      color="error"
                       sx={{ ...radialButton, marginTop: 0, marginLeft: "20px" }}
-                    >
-                      <DeleteIcon />
-                    </Button>
+                      color="error"
+                      icon={<DeleteIcon />}
+                    />
                   </Tooltip>
                 </Paper>
                 <form
@@ -525,12 +515,13 @@ const App = () => {
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
-                          sx={{ padding: 0, margin: 0 }}
+                          sx={{ padding: 0, margin: 0, div: { margin: 0 } }}
                         >
                           <SitoContainer
                             key={i}
                             justifyContent="space-between"
                             alignItems="center"
+                            sx={{ width: "100%", margin: 0 }}
                           >
                             <Typography variant="h5">{jtem.title}</Typography>
                             <SitoContainer>

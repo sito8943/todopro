@@ -15,10 +15,10 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 // @mui components
-import { Button, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 
-// styles
-import { radialButton } from "./style";
+// own components
+import RadialButton from "../RadialButton/RadialButton";
 
 const FabButtons = (props) => {
   const { onAdd, onSettings, onAbout } = props;
@@ -64,38 +64,17 @@ const FabButtons = (props) => {
           title={languageState.texts.Tooltips.AddNoteBox}
           placement="left"
         >
-          <Button
-            onClick={onAdd}
-            variant="contained"
-            color="primary"
-            sx={radialButton}
-          >
-            <AddBoxIcon />
-          </Button>
+          <RadialButton onClick={onAdd} icon={<AddBoxIcon />} />
         </Tooltip>
       </motion.div>
       <motion.div variants={ulItem} viewport={{ once: true }}>
         <Tooltip title={languageState.texts.Tooltips.Settings} placement="left">
-          <Button
-            onClick={onSettings}
-            variant="contained"
-            color="primary"
-            sx={radialButton}
-          >
-            <SettingsIcon />
-          </Button>
+          <RadialButton onClick={onSettings} icon={<SettingsIcon />} />
         </Tooltip>
       </motion.div>
       <motion.div variants={ulItem} viewport={{ once: true }}>
         <Tooltip title={languageState.texts.Tooltips.About} placement="left">
-          <Button
-            onClick={onAbout}
-            variant="contained"
-            color="info"
-            sx={radialButton}
-          >
-            <InfoIcon />
-          </Button>
+          <RadialButton onClick={onAbout} icon={<InfoIcon />} />
         </Tooltip>
       </motion.div>
     </motion.div>

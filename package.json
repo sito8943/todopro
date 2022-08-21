@@ -1,6 +1,6 @@
 {
   "name": "mern-client",
-  "version": "0.2.9",
+  "version": "0.2.14",
   "private": true,
   "dependencies": {
     "@emotion/css": "^11.9.0",

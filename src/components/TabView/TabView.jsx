@@ -8,6 +8,9 @@ import PropTypes from "prop-types";
 // @mui components
 import { useTheme, Tabs, Tab, Box } from "@mui/material";
 
+// contexts
+import { useLanguage } from "../../context/LanguageProvider";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -40,6 +43,7 @@ function a11yProps(index) {
 const TabView = (props) => {
   const theme = useTheme();
 
+  const { languageState } = useLanguage();
   const { content, tabs, value, onChange, onFixedTabs } = props;
 
   return (
@@ -69,6 +73,10 @@ const TabView = (props) => {
               {...a11yProps(i)}
             />
           ))}
+          <Tab
+            sx={{ p: { textTransform: "none" } }}
+            label={languageState.texts.Tooltips.Add}
+          />
         </Tabs>
       </Box>
       {content.map((item, i) => (

@@ -16,11 +16,9 @@ import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import SaveIcon from "@mui/icons-material/Save";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // @mui components
 import {
@@ -29,9 +27,6 @@ import {
   Box,
   Paper,
   Tooltip,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   IconButton,
   Typography,
   TextField,
@@ -51,6 +46,7 @@ import { useLanguage } from "./context/LanguageProvider";
 
 // styles
 import { radialButton } from "./components/RadialButton/style";
+import Accordion from "./components/Accordion/Accordion";
 
 const App = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -190,7 +186,10 @@ const App = () => {
 
   const [tab, setTab] = useState(0);
 
-  const handleChange = (event, newValue) => setTab(newValue);
+  const handleChange = (event, newValue) => {
+    setTab(newValue);
+    if (newValue === noteBoxes.length) setNoteBoxes({ type: "add" });
+  };
 
   const handleForm = (d) => {
     const { title, content, id } = d;
@@ -508,69 +507,11 @@ const App = () => {
                     })
                     .map((jtem, j) => (
                       <Accordion
-                        elevation={3}
-                        key={jtem.id}
-                        sx={{
-                          width: "100%",
-                          marginTop: j > 0 ? "20px" : "0",
-                          padding: "20px",
-                          animation: jtem.deleted
-                            ? "remove 0.5s ease"
-                            : "scale 0.5s ease",
-                        }}
-                      >
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          sx={{ padding: 0, margin: 0, div: { margin: 0 } }}
-                        >
-                          <SitoContainer
-                            key={i}
-                            justifyContent="space-between"
-                            alignItems="center"
-                            sx={{ width: "100%", margin: 0 }}
-                          >
-                            <Typography variant="h5">{jtem.title}</Typography>
-                            <SitoContainer>
-                              <Tooltip
-                                title={languageState.texts.Tooltips.EditNote}
-                              >
-                                <IconButton
-                                  onClick={() => onEditNote(jtem.id)}
-                                  id={`edit-${j}`}
-                                  color="primary"
-                                >
-                                  <EditIcon id={`svgEdit-${j}`} />
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip
-                                title={languageState.texts.Tooltips.DeleteNote}
-                              >
-                                <IconButton
-                                  onClick={() => onDeleteNote(jtem.id)}
-                                  id={`delete-${i}`}
-                                  color="primary"
-                                >
-                                  <DeleteIcon id={`svgDelete-${j}`} />
-                                </IconButton>
-                              </Tooltip>
-                            </SitoContainer>
-                          </SitoContainer>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <SitoContainer
-                            flexDirection="column"
-                            sx={{
-                              width: "100%",
-                            }}
-                          >
-                            <Typography variant="body1">
-                              {jtem.content
-                                ? jtem.content
-                                : languageState.texts.NoContent}
-                            </Typography>
-                          </SitoContainer>
-                        </AccordionDetails>
-                      </Accordion>
+                        jtem={jtem}
+                        j={j}
+                        onEditNote={onEditNote}
+                        onDeleteNote={onDeleteNote}
+                      />
                     ))}
                 </SitoContainer>
               </Box>

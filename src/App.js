@@ -12,6 +12,7 @@ import SitoContainer from "sito-container";
 
 // @mui icons
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import SaveIcon from "@mui/icons-material/Save";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,6 +23,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 
 // @mui components
 import {
+  useTheme,
   ThemeProvider,
   CssBaseline,
   Box,
@@ -48,11 +50,14 @@ import { useLanguage } from "./context/LanguageProvider";
 import { radialButton } from "./components/FabButtons/style";
 
 const App = () => {
+  const theme = useTheme();
   const { register, handleSubmit, reset, setValue } = useForm();
   const { languageState } = useLanguage();
 
   const [editing, setEditing] = useState(false);
   const [mode, setMode] = useState(false);
+
+  const toggleMode = () => setMode(!mode);
 
   const noteBoxesReducer = (noteBoxesState, action) => {
     const { type } = action;
@@ -256,17 +261,29 @@ const App = () => {
   const showAbout = () => {};
 
   const [modeFixed, setModeFixed] = useState(false);
+  const [showAddNote, setShowAddNote] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const onScroll = useCallback(
     (e) => {
+      //* checking for app-title
       const titleApp = document.getElementById("app-title");
       if (titleApp) {
         const isTitleVisible = inViewport(titleApp);
         if (isTitleVisible) setModeFixed(false);
         else setModeFixed(true);
       }
+      //* checking for form
+      const form = document.getElementById("form");
+      if (form) {
+        const isFormVisible = inViewport(form);
+        if (isFormVisible) {
+          setShowAddNote(false);
+          setShowForm(false);
+        } else setShowAddNote(true);
+      }
     },
-    [setModeFixed]
+    [setModeFixed, setShowAddNote]
   );
 
   useEffect(() => {
@@ -318,9 +335,26 @@ const App = () => {
               zIndex: 20,
               transition: "top 500ms ease",
             }}
-            onClick={() => setMode(!mode)}
+            onClick={toggleMode}
           >
             {mode ? <DarkModeIcon /> : <LightModeIcon />}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              ...radialButton,
+              marginTop: 0,
+              position: "fixed",
+              top: "20px",
+              right: "70px",
+              zIndex: showAddNote ? 20 : -1,
+              transition: "all 500ms ease",
+              transform: showAddNote ? "scale(1)" : "scale(0)",
+            }}
+            onClick={() => setShowForm(true)}
+          >
+            <NoteAddIcon />
           </Button>
         </SitoContainer>
 
@@ -368,62 +402,80 @@ const App = () => {
                   </Button>
                 </Tooltip>
               </SitoContainer>
-              <form className={formCss} onSubmit={handleSubmit(handleForm)}>
-                {languageState.texts.Inputs.map((item, i) => (
-                  <SitoContainer
-                    key={item.id}
-                    sx={{ position: i === 0 ? "relative" : undefined }}
-                  >
-                    <TextField
-                      label={item.label}
-                      id={item.id}
-                      type={item.type}
-                      multiline={item.multiline}
-                      minRows={item.minRows}
-                      maxRows={item.maxRows}
-                      placeholder={item.placeholder}
-                      sx={inputSx[i]}
-                      {...register(item.id)}
-                    />
-                    {i === 0 && (
-                      <>
-                        <Tooltip title={languageState.texts.Tooltips.SaveNote}>
-                          <IconButton
-                            tabIndex={-1}
-                            type="submit"
-                            color="primary"
-                            sx={{
-                              position: "absolute",
-                              transform: "translateY(-50%)",
-                              top: "50%",
-                              right: editing ? "40px" : "0px",
-                            }}
+              <form
+                id="form"
+                className={formCss}
+                onSubmit={handleSubmit(handleForm)}
+              >
+                <Paper
+                  elevation={3}
+                  sx={{
+                    background: theme.palette.background.default,
+                    padding: "20px",
+                    position: showForm ? "fixed" : "relative",
+                    zIndex: 10,
+                  }}
+                >
+                  {languageState.texts.Inputs.map((item, i) => (
+                    <SitoContainer
+                      key={item.id}
+                      sx={{ position: i === 0 ? "relative" : undefined }}
+                    >
+                      <TextField
+                        label={item.label}
+                        id={item.id}
+                        type={item.type}
+                        multiline={item.multiline}
+                        minRows={item.minRows}
+                        maxRows={item.maxRows}
+                        placeholder={item.placeholder}
+                        sx={inputSx[i]}
+                        {...register(item.id)}
+                      />
+                      {i === 0 && (
+                        <>
+                          <Tooltip
+                            title={languageState.texts.Tooltips.SaveNote}
                           >
-                            {editing ? <SaveIcon /> : <AddCircleIcon />}
-                          </IconButton>
-                        </Tooltip>
-                        {editing && (
-                          <Tooltip title={languageState.texts.Tooltips.Cancel}>
                             <IconButton
                               tabIndex={-1}
                               type="submit"
-                              color="error"
-                              onClick={cancelEdit}
+                              color="primary"
                               sx={{
                                 position: "absolute",
                                 transform: "translateY(-50%)",
                                 top: "50%",
-                                right: "0px",
+                                right: editing ? "40px" : "0px",
                               }}
                             >
-                              <CancelIcon />
+                              {editing ? <SaveIcon /> : <AddCircleIcon />}
                             </IconButton>
                           </Tooltip>
-                        )}
-                      </>
-                    )}
-                  </SitoContainer>
-                ))}
+                          {editing && (
+                            <Tooltip
+                              title={languageState.texts.Tooltips.Cancel}
+                            >
+                              <IconButton
+                                tabIndex={-1}
+                                type="submit"
+                                color="error"
+                                onClick={cancelEdit}
+                                sx={{
+                                  position: "absolute",
+                                  transform: "translateY(-50%)",
+                                  top: "50%",
+                                  right: "0px",
+                                }}
+                              >
+                                <CancelIcon />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                        </>
+                      )}
+                    </SitoContainer>
+                  ))}
+                </Paper>
               </form>
               <SitoContainer
                 sx={{
@@ -457,7 +509,11 @@ const App = () => {
                             width: "100%",
                           }}
                         >
-                          <SitoContainer key={i} justifyContent="space-between">
+                          <SitoContainer
+                            key={i}
+                            justifyContent="space-between"
+                            alignItems="center"
+                          >
                             <Typography variant="h5">{jtem.title}</Typography>
                             <SitoContainer>
                               <Tooltip

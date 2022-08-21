@@ -44,7 +44,7 @@ const light = createTheme({
     divider: "rgba(0,0,0,0.12)",
     background: {
       default: "#fff",
-      paper: "#ddd",
+      paper: "#eee",
     },
     text: {
       main: "#222",

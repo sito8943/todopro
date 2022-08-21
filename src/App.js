@@ -146,9 +146,18 @@ const App = () => {
       }
       case "saveNote": {
         const newNoteState = [...noteState];
-        const { index, newNote } = action;
-        if (index) newNoteState[index] = newNote;
-        else {
+        const { newNote, editing } = action;
+        if (editing) {
+          let index = -1;
+          const filter = newNoteState.filter((item, i) => {
+            if (item.id === newNote.id) {
+              index = i;
+              return item;
+            }
+            return null;
+          });
+          if (filter.length) newNoteState[index] = newNote;
+        } else {
           const filter = newNoteState.filter((item) => {
             if (item.id === newNote.id) return item;
             return null;
@@ -172,15 +181,22 @@ const App = () => {
   };
 
   const handleForm = (d) => {
-    const { title, content } = d;
-    setNoteBoxes({
-      type: "saveNote",
-      index: tab,
-      newNote: { id: noteBoxes[tab].content.length },
-    });
+    const { title, content, id } = d;
+    console.log(id);
+    if (!id && id !== 0)
+      setNoteBoxes({
+        type: "saveNote",
+        index: tab,
+        newNote: { id: noteBoxes[tab].content.length },
+      });
     setNotes({
       type: "saveNote",
-      newNote: { id: noteBoxes[tab].content.length, title, content },
+      newNote: {
+        id: id || id === 0 ? id : noteBoxes[tab].content.length,
+        title,
+        content,
+      },
+      editing,
     });
     reset({ title: "", content: "" });
     setEditing(false);
@@ -196,7 +212,6 @@ const App = () => {
   };
 
   const onEditNote = (id) => {
-    setValue.apply(id);
     const filter = notes.filter((item) => {
       if (item.id === id) return item;
       return null;
@@ -204,6 +219,7 @@ const App = () => {
     if (filter.length) {
       setValue("title", filter[0].title);
       setValue("content", filter[0].content);
+      setValue("id", id);
       setEditing(true);
     }
   };

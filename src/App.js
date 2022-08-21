@@ -1,6 +1,8 @@
 import { useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 
+//
+
 // @emotion
 import { css } from "@emotion/css";
 
@@ -42,7 +44,7 @@ import { useLanguage } from "./context/LanguageProvider";
 import { radialButton } from "./components/FabButtons/style";
 
 const App = () => {
-  const { register, handleSubmit, reset, setValue, getValues } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const { languageState } = useLanguage();
 
   const [editing, setEditing] = useState(false);
@@ -182,7 +184,6 @@ const App = () => {
 
   const handleForm = (d) => {
     const { title, content, id } = d;
-    console.log(id);
     if (!id && id !== 0)
       setNoteBoxes({
         type: "saveNote",
@@ -233,9 +234,15 @@ const App = () => {
     }, 500);
   };
 
-  const addNoteBox = () => setNoteBoxes({ type: "add" });
+  const addNoteBox = () => {
+    setNoteBoxes({ type: "add" });
+    setTab(tab + 1);
+  };
 
-  const deleteNoteBox = (index) => setNoteBoxes({ type: "delete", index });
+  const deleteNoteBox = (index) => {
+    setNoteBoxes({ type: "delete", index });
+    if (index === noteBoxes.length - 1) setTab(tab - 1);
+  };
 
   const shareNoteBox = (index) => {};
 

@@ -9,9 +9,11 @@ import SitoContainer from "sito-container";
 
 // @mui icons
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SaveIcon from "@mui/icons-material/Save";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 // @mui components
 import {
@@ -40,8 +42,10 @@ import { useLanguage } from "./context/LanguageProvider";
 import { radialButton } from "./components/FabButtons/style";
 
 const App = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue, getValues } = useForm();
   const { languageState } = useLanguage();
+
+  const [editing, setEditing] = useState(false);
 
   const noteBoxesReducer = (noteBoxesState, action) => {
     const { type } = action;
@@ -57,8 +61,11 @@ const App = () => {
       }
       case "deleteNote": {
         const newNoteBoxes = [...noteBoxesState];
-        const { index, jndex } = action;
-        newNoteBoxes[index].content.splice(jndex, 1);
+        const { index, id } = action;
+        newNoteBoxes[index].content.splice(
+          newNoteBoxes[index].content.indexOf(id),
+          1
+        );
         return newNoteBoxes;
       }
       case "add": {
@@ -116,6 +123,7 @@ const App = () => {
         const newNoteState = [...noteState];
         const { id } = action;
         const filter = newNoteState.filter((item) => {
+          console.log(item, id);
           if (item.id === id) return item;
           return null;
         });
@@ -175,23 +183,37 @@ const App = () => {
       newNote: { id: noteBoxes[tab].content.length, title, content },
     });
     reset({ title: "", content: "" });
+    setEditing(false);
   };
 
   const formCss = css({
     width: "100%",
   });
 
-  const onEditNote = (e) => {
-    const { id } = e.target;
-    const parsedId = id.split("-");
-    const numberId = Number(parsedId[1]);
+  const cancelEdit = () => {
+    setEditing(false);
+    reset({ title: "", content: "" });
   };
 
-  const onDeleteNote = (jndex, id) => {
+  const onEditNote = (id) => {
+    setValue.apply(id);
+    const filter = notes.filter((item) => {
+      if (item.id === id) return item;
+      return null;
+    });
+    if (filter.length) {
+      setValue("title", filter[0].title);
+      setValue("content", filter[0].content);
+      setEditing(true);
+    }
+  };
+
+  const onDeleteNote = (id) => {
     setNotes({ type: "readyToDeleteNote", id });
     setTimeout(() => {
       setNotes({ type: "deleteNote", id });
-      setNoteBoxes({ type: "deleteNote", jndex, index: tab });
+      setNoteBoxes({ type: "deleteNote", index: tab });
+      setEditing(false);
     }, 500);
   };
 
@@ -291,19 +313,41 @@ const App = () => {
                       required
                     />
                     {i === 0 && (
-                      <IconButton
-                        tabIndex={-1}
-                        type="submit"
-                        color="primary"
-                        sx={{
-                          position: "absolute",
-                          transform: "translateY(-50%)",
-                          top: "50%",
-                          right: "0px",
-                        }}
-                      >
-                        <AddCircleIcon />
-                      </IconButton>
+                      <>
+                        <Tooltip title={languageState.texts.Tooltips.SaveNote}>
+                          <IconButton
+                            tabIndex={-1}
+                            type="submit"
+                            color="primary"
+                            sx={{
+                              position: "absolute",
+                              transform: "translateY(-50%)",
+                              top: "50%",
+                              right: editing ? "40px" : "0px",
+                            }}
+                          >
+                            {editing ? <SaveIcon /> : <AddCircleIcon />}
+                          </IconButton>
+                        </Tooltip>
+                        {editing && (
+                          <Tooltip title={languageState.texts.Tooltips.Cancel}>
+                            <IconButton
+                              tabIndex={-1}
+                              type="submit"
+                              color="error"
+                              onClick={cancelEdit}
+                              sx={{
+                                position: "absolute",
+                                transform: "translateY(-50%)",
+                                top: "50%",
+                                right: "0px",
+                              }}
+                            >
+                              <CancelIcon />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                      </>
                     )}
                   </SitoContainer>
                 ))}
@@ -343,20 +387,28 @@ const App = () => {
                           <SitoContainer key={i} justifyContent="space-between">
                             <Typography variant="h5">{jtem.title}</Typography>
                             <SitoContainer>
-                              <IconButton
-                                onClick={() => onEditNote(j, jtem.id)}
-                                id={`edit-${j}`}
-                                color="primary"
+                              <Tooltip
+                                title={languageState.texts.Tooltips.EditNote}
                               >
-                                <EditIcon id={`svgEdit-${j}`} />
-                              </IconButton>
-                              <IconButton
-                                onClick={() => onDeleteNote(j, jtem.id)}
-                                id={`delete-${i}`}
-                                color="primary"
+                                <IconButton
+                                  onClick={() => onEditNote(jtem.id)}
+                                  id={`edit-${j}`}
+                                  color="primary"
+                                >
+                                  <EditIcon id={`svgEdit-${j}`} />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip
+                                title={languageState.texts.Tooltips.DeleteNote}
                               >
-                                <DeleteIcon id={`svgDelete-${j}`} />
-                              </IconButton>
+                                <IconButton
+                                  onClick={() => onDeleteNote(jtem.id)}
+                                  id={`delete-${i}`}
+                                  color="primary"
+                                >
+                                  <DeleteIcon id={`svgDelete-${j}`} />
+                                </IconButton>
+                              </Tooltip>
                             </SitoContainer>
                           </SitoContainer>
                           <Typography variant="body1">

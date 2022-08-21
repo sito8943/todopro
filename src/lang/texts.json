@@ -9,9 +9,13 @@
     "Tooltips": {
       "AddNoteBox": "Agregar caja de notas",
       "DeleteNoteBox": "Eliminar caja de notas",
+      "DeleteNote": "Eliminar nota",
+      "EditNote": "Editar nota",
       "ShareNoteBox": "Compartir caja de notas",
       "Settings": "Ajustes",
-      "About": "Acerca de TodoPro"
+      "About": "Acerca de TodoPro",
+      "SaveNote": "Guardar",
+      "Cancel": "Cancelar"
     },
     "Inputs": [
       {

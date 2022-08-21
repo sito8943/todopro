@@ -9,9 +9,6 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.7.0",
     "@mui/x-data-grid": "^5.10.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
     "axios": "^0.27.2",
     "framer-motion": "^7.2.0",
     "js-base64": "^3.7.2",
@@ -22,8 +19,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sito-container": "^0.2.21",
-    "sito-image": "^0.2.20",
-    "web-vitals": "^2.1.0"
+    "sito-image": "^0.2.20"
   },
   "scripts": {
     "start": "react-scripts start",

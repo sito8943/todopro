@@ -10,6 +10,8 @@ import light from "./assets/theme/light";
 
 // views
 import Home from "./views/Home/Home";
+import Login from "./views/Login/Login";
+import Register from "./views/Register/Register";
 
 const App = () => {
   const [mode, setMode] = useState(false);
@@ -26,6 +28,8 @@ const App = () => {
             path="/"
             element={<Home toggleMode={toggleMode} mode={mode} />}
           />
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Register />} />
         </Routes>
       </BrowserRouter>
       {/*<Notification

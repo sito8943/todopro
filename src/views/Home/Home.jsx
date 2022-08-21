@@ -1,5 +1,6 @@
 import { useState, useReducer, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -21,6 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import LoginIcon from "@mui/icons-material/Login";
 
 // @mui components
 import {
@@ -126,7 +128,6 @@ const Home = () => {
         const newNoteState = [...noteState];
         const { id } = action;
         const filter = newNoteState.filter((item) => {
-          console.log(item, id);
           if (item.id === id) return item;
           return null;
         });
@@ -322,31 +323,59 @@ const Home = () => {
           <Typography id="app-title" variant="h4">
             {languageState.texts.Title}
           </Typography>
-          <RadialButton
-            sx={{
-              marginTop: 0,
-              position: modeFixed ? "fixed" : "relative",
-              top: modeFixed ? "55px" : 0,
-              right: modeFixed ? "20px" : "20px",
-              zIndex: 20,
-              transition: "top 500ms ease",
-            }}
-            onClick={toggleMode}
-            icon={mode ? <DarkModeIcon /> : <LightModeIcon />}
-          />
-          <RadialButton
-            sx={{
-              marginTop: 0,
-              position: "fixed",
-              top: "55px",
-              right: "70px",
-              zIndex: showAddNote ? 20 : -1,
-              transition: "all 500ms ease",
-              transform: showAddNote ? "scale(1)" : "scale(0)",
-            }}
-            onClick={() => setShowForm(true)}
-            icon={<NoteAddIcon />}
-          />
+          <SitoContainer>
+            <Tooltip
+              title={
+                mode
+                  ? languageState.texts.Tooltips.Mode.ToDark
+                  : languageState.texts.Tooltips.Mode.ToLight
+              }
+            >
+              <RadialButton
+                sx={{
+                  marginTop: 0,
+                  position: modeFixed ? "fixed" : "relative",
+                  top: modeFixed ? "55px" : 0,
+                  right: modeFixed ? "20px" : "20px",
+                  zIndex: 20,
+                  transition: "top 500ms ease",
+                }}
+                onClick={toggleMode}
+                icon={mode ? <DarkModeIcon /> : <LightModeIcon />}
+              />
+            </Tooltip>
+            <Link to="/login">
+              <Tooltip title={languageState.texts.Tooltips.Login}>
+                <RadialButton
+                  sx={{
+                    marginTop: 0,
+                    position: modeFixed ? "fixed" : "relative",
+                    top: modeFixed ? "55px" : 0,
+                    right: modeFixed ? "70px" : "110px",
+                    zIndex: 20,
+                    transition: "top 500ms ease",
+                  }}
+                  onClick={toggleMode}
+                  icon={<LoginIcon />}
+                />
+              </Tooltip>
+            </Link>
+            <Tooltip tooltip={languageState.texts.Tooltips.AddNoteBox}>
+              <RadialButton
+                sx={{
+                  marginTop: 0,
+                  position: "fixed",
+                  top: "55px",
+                  right: "120px",
+                  zIndex: showAddNote ? 20 : -1,
+                  transition: "all 500ms ease",
+                  transform: showAddNote ? "scale(1)" : "scale(0)",
+                }}
+                onClick={() => setShowForm(true)}
+                icon={<NoteAddIcon />}
+              />
+            </Tooltip>
+          </SitoContainer>
         </SitoContainer>
 
         <TabView

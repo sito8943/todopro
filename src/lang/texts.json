@@ -8,6 +8,11 @@
       "Placeholder": "ej: Mis notas"
     },
     "Tooltips": {
+      "Mode": {
+        "ToDark": "Modo oscuro",
+        "ToLight": "Modo claro"
+      },
+      "Login": "Iniciar sesión",
       "Add": "Agregar",
       "ExpandFab": "Mostrar botones",
       "HideFab": "Ocultar botones",

@@ -4,12 +4,15 @@ import { useForm } from "react-hook-form";
 // @emotion
 import { css } from "@emotion/css";
 
+// sito components
+import SitoContainer from "sito-container";
+
 // @mui icons
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-// @mui
+// @mui components
 import {
   ThemeProvider,
   CssBaseline,
@@ -22,7 +25,8 @@ import {
 // theme
 import dark from "./assets/theme/dark";
 
-import Container from "./components/Container/Container";
+// own components
+import FabButtons from "./components/FabButtons/FabButtons";
 
 // contexts
 import { useLanguage } from "./context/LanguageProvider";
@@ -88,6 +92,16 @@ const App = () => {
     }
   }, [count]);
 
+  const addNoteBox = () => {};
+
+  const deleteNoteBox = () => {};
+
+  const shareNoteBox = () => {};
+
+  const showSettings = () => {};
+
+  const showAbout = () => {};
+
   return (
     <ThemeProvider theme={dark}>
       <CssBaseline />
@@ -97,18 +111,25 @@ const App = () => {
         text={notificationText}
         onClose={handleNotificationClose}
       />*/}
-      <Container
+      <FabButtons
+        onAdd={addNoteBox}
+        onDelete={deleteNoteBox}
+        onShare={shareNoteBox}
+        onSettings={showSettings}
+        onAbout={showAbout}
+      />
+      <SitoContainer
         justifyContent="center"
         sx={{ paddingTop: "1.5rem", width: "100vw", height: "100vh" }}
         className="App"
       >
-        <Container
+        <SitoContainer
           flexDirection="column"
           sx={{ width: "80%", maxWidth: "400px" }}
         >
           <form className={formCss} onSubmit={handleSubmit(handleForm)}>
             {languageState.texts.Inputs.map((item, i) => (
-              <Container
+              <SitoContainer
                 key={item.id}
                 sx={{ position: i === 0 ? "relative" : undefined }}
               >
@@ -138,17 +159,17 @@ const App = () => {
                     <AddCircleIcon />
                   </IconButton>
                 )}
-              </Container>
+              </SitoContainer>
             ))}
           </form>
 
-          <Container
+          <SitoContainer
             sx={{
               marginTop: "20px",
               width: "100%",
             }}
           >
-            <Container flexDirection="column" sx={{ width: "100%" }}>
+            <SitoContainer flexDirection="column" sx={{ width: "100%" }}>
               {notes.map((item, i) => (
                 <Paper
                   elevation={3}
@@ -161,15 +182,15 @@ const App = () => {
                       : "scale 0.5s ease",
                   }}
                 >
-                  <Container
+                  <SitoContainer
                     flexDirection="column"
                     sx={{
                       width: "100%",
                     }}
                   >
-                    <Container key={i} justifyContent="space-between">
+                    <SitoContainer key={i} justifyContent="space-between">
                       <Typography variant="h5">{item.title}</Typography>
-                      <Container>
+                      <SitoContainer>
                         <IconButton
                           onClick={onEdit}
                           id={`edit-${i}`}
@@ -184,16 +205,16 @@ const App = () => {
                         >
                           <DeleteIcon id={`svgDelete-${i}`} />
                         </IconButton>
-                      </Container>
-                    </Container>
+                      </SitoContainer>
+                    </SitoContainer>
                     <Typography variant="body1">{item.content}</Typography>
-                  </Container>
+                  </SitoContainer>
                 </Paper>
               ))}
-            </Container>
-          </Container>
-        </Container>
-      </Container>
+            </SitoContainer>
+          </SitoContainer>
+        </SitoContainer>
+      </SitoContainer>
     </ThemeProvider>
   );
 };

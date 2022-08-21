@@ -1,5 +1,12 @@
 {
   "es": {
+    "Tooltips": {
+      "AddNoteBox": "Agregar caja de notas",
+      "DeleteNoteBox": "Eliminar caja de notas",
+      "ShareNoteBox": "Compartir caja de notas",
+      "Settings": "Ajustes",
+      "About": "Acerca de TodoPro"
+    },
     "Inputs": [
       {
         "id": "title",

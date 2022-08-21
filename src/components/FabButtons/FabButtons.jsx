@@ -21,7 +21,7 @@ import { Button, Tooltip } from "@mui/material";
 import { radialButton } from "./style";
 
 const FabButtons = (props) => {
-  const { onAdd, onShare, onSettings, onAbout } = props;
+  const { onAdd, onSettings, onAbout } = props;
   const { languageState } = useLanguage();
 
   const container = {

@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from "react";
+import { useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 
 // @emotion
@@ -36,19 +36,12 @@ import FabButtons from "./components/FabButtons/FabButtons";
 // contexts
 import { useLanguage } from "./context/LanguageProvider";
 
-// context
-import { useNotification } from "./context/NotificationProvider";
-
 // styles
 import { radialButton } from "./components/FabButtons/style";
-import { tab } from "@testing-library/user-event/dist/tab";
 
 const App = () => {
   const { register, handleSubmit, reset } = useForm();
   const { languageState } = useLanguage();
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
 
   const noteBoxesReducer = (noteBoxesState, action) => {
     const { type } = action;
@@ -181,8 +174,7 @@ const App = () => {
       type: "saveNote",
       newNote: { id: noteBoxes[tab].content.length, title, content },
     });
-    setTitle(title);
-    setContent(content);
+    reset({ title: "", content: "" });
   };
 
   const formCss = css({
@@ -352,8 +344,8 @@ const App = () => {
                             <Typography variant="h5">{jtem.title}</Typography>
                             <SitoContainer>
                               <IconButton
-                                onClick={onEditNote}
-                                id={`edit-${i}`}
+                                onClick={() => onEditNote(j, jtem.id)}
+                                id={`edit-${j}`}
                                 color="primary"
                               >
                                 <EditIcon id={`svgEdit-${j}`} />

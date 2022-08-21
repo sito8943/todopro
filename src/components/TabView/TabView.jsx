@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-props-no-spreading */
-import { useEffect, useState } from "react";
 
 // prop types
 import PropTypes from "prop-types";

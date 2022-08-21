@@ -45,6 +45,7 @@ const light = createTheme({
     background: {
       default: "#fff",
       paper: "#eee",
+      special: "#eee",
     },
     text: {
       main: "#222",

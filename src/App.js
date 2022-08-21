@@ -20,15 +20,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // @mui components
 import {
-  useTheme,
   ThemeProvider,
   CssBaseline,
   Box,
   Paper,
   Tooltip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Button,
   IconButton,
   Typography,
@@ -50,7 +53,6 @@ import { useLanguage } from "./context/LanguageProvider";
 import { radialButton } from "./components/FabButtons/style";
 
 const App = () => {
-  const theme = useTheme();
   const { register, handleSubmit, reset, setValue } = useForm();
   const { languageState } = useLanguage();
 
@@ -364,122 +366,140 @@ const App = () => {
           tabs={noteBoxes.map((item, i) => item.title)}
           content={noteBoxes.map((item, i) => (
             <Box
-              flexDirection="column"
               key={i}
-              sx={{ width: { xs: "320px", md: "400px" }, margin: "10px 20px" }}
+              sx={{
+                margin: "10px 20px",
+                display: "flex",
+                flexDirection: { md: "row", xs: "column" },
+              }}
             >
-              <SitoContainer alignItems="center" sx={{ marginBottom: "20px" }}>
-                <TextField
-                  label={languageState.texts.NoteTitleInput.Label}
-                  placeholder={languageState.texts.NoteTitleInput.Placeholder}
-                  value={item.title}
-                  onChange={(e) => {
-                    setNoteBoxes({
-                      type: "changeTitle",
-                      index: i,
-                      newValue: e.target.value,
-                    });
-                  }}
-                />
-                <Tooltip title={languageState.texts.Tooltips.ShareNoteBox}>
-                  <Button
-                    onClick={shareNoteBox}
-                    variant="contained"
-                    color="primary"
-                    sx={{ ...radialButton, marginTop: 0, marginLeft: "20px" }}
-                  >
-                    <IosShareIcon />
-                  </Button>
-                </Tooltip>
-                <Tooltip title={languageState.texts.Tooltips.DeleteNoteBox}>
-                  <Button
-                    onClick={() => deleteNoteBox(i)}
-                    variant="contained"
-                    color="error"
-                    sx={{ ...radialButton, marginTop: 0, marginLeft: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </Tooltip>
-              </SitoContainer>
-              <form
-                id="form"
-                className={formCss}
-                onSubmit={handleSubmit(handleForm)}
+              <SitoContainer
+                flexDirection="column"
+                sx={{ width: { xs: "320px", md: "400px" } }}
               >
                 <Paper
                   elevation={3}
                   sx={{
-                    background: theme.palette.background.default,
+                    marginBottom: "20px",
+                    display: "flex",
+                    alignItems: "center",
                     padding: "20px",
-                    position: showForm ? "fixed" : "relative",
-                    zIndex: 10,
                   }}
                 >
-                  {languageState.texts.Inputs.map((item, i) => (
-                    <SitoContainer
-                      key={item.id}
-                      sx={{ position: i === 0 ? "relative" : undefined }}
+                  <TextField
+                    label={languageState.texts.NoteTitleInput.Label}
+                    placeholder={languageState.texts.NoteTitleInput.Placeholder}
+                    value={item.title}
+                    onChange={(e) => {
+                      setNoteBoxes({
+                        type: "changeTitle",
+                        index: i,
+                        newValue: e.target.value,
+                      });
+                    }}
+                  />
+                  <Tooltip title={languageState.texts.Tooltips.ShareNoteBox}>
+                    <Button
+                      onClick={shareNoteBox}
+                      variant="contained"
+                      color="primary"
+                      sx={{ ...radialButton, marginTop: 0, marginLeft: "20px" }}
                     >
-                      <TextField
-                        label={item.label}
-                        id={item.id}
-                        type={item.type}
-                        multiline={item.multiline}
-                        minRows={item.minRows}
-                        maxRows={item.maxRows}
-                        placeholder={item.placeholder}
-                        sx={inputSx[i]}
-                        {...register(item.id)}
-                      />
-                      {i === 0 && (
-                        <>
-                          <Tooltip
-                            title={languageState.texts.Tooltips.SaveNote}
-                          >
-                            <IconButton
-                              tabIndex={-1}
-                              type="submit"
-                              color="primary"
-                              sx={{
-                                position: "absolute",
-                                transform: "translateY(-50%)",
-                                top: "50%",
-                                right: editing ? "40px" : "0px",
-                              }}
-                            >
-                              {editing ? <SaveIcon /> : <AddCircleIcon />}
-                            </IconButton>
-                          </Tooltip>
-                          {editing && (
+                      <IosShareIcon />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title={languageState.texts.Tooltips.DeleteNoteBox}>
+                    <Button
+                      onClick={() => deleteNoteBox(i)}
+                      variant="contained"
+                      color="error"
+                      sx={{ ...radialButton, marginTop: 0, marginLeft: "20px" }}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </Tooltip>
+                </Paper>
+                <form
+                  id="form"
+                  className={formCss}
+                  onSubmit={handleSubmit(handleForm)}
+                >
+                  <Paper
+                    elevation={3}
+                    sx={{
+                      padding: "20px",
+                      position: showForm ? "fixed" : "relative",
+                      zIndex: 10,
+                    }}
+                  >
+                    {languageState.texts.Inputs.map((item, i) => (
+                      <SitoContainer
+                        key={item.id}
+                        sx={{ position: i === 0 ? "relative" : undefined }}
+                      >
+                        <TextField
+                          label={item.label}
+                          id={item.id}
+                          type={item.type}
+                          multiline={item.multiline}
+                          minRows={item.minRows}
+                          maxRows={item.maxRows}
+                          placeholder={item.placeholder}
+                          sx={inputSx[i]}
+                          {...register(item.id)}
+                        />
+                        {i === 0 && (
+                          <>
                             <Tooltip
-                              title={languageState.texts.Tooltips.Cancel}
+                              title={languageState.texts.Tooltips.SaveNote}
                             >
                               <IconButton
                                 tabIndex={-1}
                                 type="submit"
-                                color="error"
-                                onClick={cancelEdit}
+                                color="primary"
                                 sx={{
                                   position: "absolute",
                                   transform: "translateY(-50%)",
                                   top: "50%",
-                                  right: "0px",
+                                  right: editing ? "40px" : "0px",
                                 }}
                               >
-                                <CancelIcon />
+                                {editing ? <SaveIcon /> : <AddCircleIcon />}
                               </IconButton>
                             </Tooltip>
-                          )}
-                        </>
-                      )}
-                    </SitoContainer>
-                  ))}
-                </Paper>
-              </form>
-              <SitoContainer
+                            {editing && (
+                              <Tooltip
+                                title={languageState.texts.Tooltips.Cancel}
+                              >
+                                <IconButton
+                                  tabIndex={-1}
+                                  type="submit"
+                                  color="error"
+                                  onClick={cancelEdit}
+                                  sx={{
+                                    position: "absolute",
+                                    transform: "translateY(-50%)",
+                                    top: "50%",
+                                    right: "0px",
+                                  }}
+                                >
+                                  <CancelIcon />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                          </>
+                        )}
+                      </SitoContainer>
+                    ))}
+                  </Paper>
+                </form>
+              </SitoContainer>
+              <Box
                 sx={{
-                  marginTop: "20px",
+                  flex: 1,
+                  display: "flex",
+                  marginLeft: { md: "20px", xs: 0 },
+                  marginTop: { xs: "20px", md: 0 },
                   width: "100%",
                 }}
               >
@@ -491,23 +511,21 @@ const App = () => {
                       return null;
                     })
                     .map((jtem, j) => (
-                      <Paper
+                      <Accordion
                         elevation={3}
                         key={jtem.id}
                         sx={{
                           width: "100%",
                           marginTop: j > 0 ? "20px" : "0",
-                          padding: "1.3rem",
+                          padding: "20px",
                           animation: jtem.deleted
                             ? "remove 0.5s ease"
                             : "scale 0.5s ease",
                         }}
                       >
-                        <SitoContainer
-                          flexDirection="column"
-                          sx={{
-                            width: "100%",
-                          }}
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          sx={{ padding: 0, margin: 0 }}
                         >
                           <SitoContainer
                             key={i}
@@ -540,14 +558,25 @@ const App = () => {
                               </Tooltip>
                             </SitoContainer>
                           </SitoContainer>
-                          <Typography variant="body1">
-                            {jtem.content}
-                          </Typography>
-                        </SitoContainer>
-                      </Paper>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <SitoContainer
+                            flexDirection="column"
+                            sx={{
+                              width: "100%",
+                            }}
+                          >
+                            <Typography variant="body1">
+                              {jtem.content
+                                ? jtem.content
+                                : languageState.texts.NoContent}
+                            </Typography>
+                          </SitoContainer>
+                        </AccordionDetails>
+                      </Accordion>
                     ))}
                 </SitoContainer>
-              </SitoContainer>
+              </Box>
             </Box>
           ))}
         />

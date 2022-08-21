@@ -2,6 +2,7 @@
   "es": {
     "Title": "ToDo-Pro",
     "NewNote": "Nueva nota",
+    "NoContent": "No tiene contenido",
     "NoteTitleInput": {
       "Label": "Título de la caja",
       "Placeholder": "ej: Mis notas"

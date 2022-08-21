@@ -1,5 +1,11 @@
 {
   "es": {
+    "Title": "ToDo-Pro",
+    "NewNote": "Nueva nota",
+    "NoteTitleInput": {
+      "Label": "Título de la caja",
+      "Placeholder": "ej: Mis notas"
+    },
     "Tooltips": {
       "AddNoteBox": "Agregar caja de notas",
       "DeleteNoteBox": "Eliminar caja de notas",

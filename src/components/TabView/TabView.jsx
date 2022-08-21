@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // @mui components
-import { Tabs, Tab, Typography, Box } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,11 +20,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ paddingTop: "20px" }}>{children}</Box>}
     </div>
   );
 }
@@ -43,17 +39,7 @@ function a11yProps(index) {
 }
 
 const TabView = (props) => {
-  const { content, tabs, onChange } = props;
-
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  useEffect(() => {
-    if (onChange) onChange(value);
-  }, [value]);
+  const { content, tabs, value, onChange } = props;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -62,11 +48,17 @@ const TabView = (props) => {
           textColor="primary"
           indicatorColor="primary"
           value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
+          onChange={onChange}
+          variant="scrollable"
+          scrollButtons="auto"
         >
           {tabs.map((item, i) => (
-            <Tab key={item} label={item} {...a11yProps(i)} />
+            <Tab
+              sx={{ p: { textTransform: "none" } }}
+              key={i}
+              label={item}
+              {...a11yProps(i)}
+            />
           ))}
         </Tabs>
       </Box>
@@ -81,11 +73,13 @@ const TabView = (props) => {
 
 TabView.defaultProps = {
   onChange: undefined,
+  value: 0,
 };
 
 TabView.propTypes = {
   content: PropTypes.arrayOf(PropTypes.node).isRequired,
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  value: PropTypes.number,
   onChange: PropTypes.func,
 };
 

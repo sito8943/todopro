@@ -42,6 +42,29 @@
         "minRows": 4,
         "maxRows": 4
       }
-    ]
+    ],
+    "Login": {
+      "Title": "Iniciar sesión",
+      "Remember": "Recuérdame",
+      "Forgot": {
+        "Label": "¿Ocurre algo?",
+        "Password": "Olvidé mi contraseña",
+        "User": "Olvidé mi usuario"
+      },
+      "Submit": {
+        "Login": "Aceptar",
+        "Register": "Registrarse"
+      },
+      "Inputs": {
+        "User": {
+          "Label": "Usuario",
+          "Placeholder": "ej: juan"
+        },
+        "Password": {
+          "Label": "Contraseña",
+          "Placeholder": "ej: ********"
+        }
+      }
+    }
   }
 }

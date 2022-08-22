@@ -28,8 +28,16 @@ const App = () => {
             path="/"
             element={<Home toggleMode={toggleMode} mode={mode} />}
           />
-          <Route exact path="/" element={<Login />} />
-          <Route exact path="/" element={<Register />} />
+          <Route
+            exact
+            path="/login"
+            element={<Login toggleMode={toggleMode} mode={mode} />}
+          />
+          <Route
+            exact
+            path="/register"
+            element={<Register toggleMode={toggleMode} mode={mode} />}
+          />
         </Routes>
       </BrowserRouter>
       {/*<Notification

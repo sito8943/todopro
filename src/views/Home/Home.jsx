@@ -43,14 +43,12 @@ import RadialButton from "../../components/RadialButton/RadialButton";
 // contexts
 import { useLanguage } from "../../context/LanguageProvider";
 
-const Home = () => {
+const Home = (props) => {
+  const { toggleMode, mode } = props;
   const { register, handleSubmit, reset, setValue } = useForm();
   const { languageState } = useLanguage();
 
   const [editing, setEditing] = useState(false);
-  const [mode, setMode] = useState(false);
-
-  const toggleMode = () => setMode(!mode);
 
   const noteBoxesReducer = (noteBoxesState, action) => {
     const { type } = action;

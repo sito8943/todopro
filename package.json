@@ -2,6 +2,7 @@
   "name": "todo-pro",
   "version": "0.2.14",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@emotion/css": "^11.9.0",
     "@emotion/react": "^11.9.0",

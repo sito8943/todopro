@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import {useState, useEffect} from "react";
+import {useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -15,10 +15,10 @@ import SitoContainer from "sito-container";
 import RadialButton from "../../components/RadialButton/RadialButton";
 
 // contexts
-import { useLanguage } from "../../context/LanguageProvider";
+import {useLanguage} from "../../context/LanguageProvider";
 
 const Forgot = (props) => {
-    const { toggleMode, mode } = props;
+    const {toggleMode, mode} = props;
 
     const location = useLocation();
 

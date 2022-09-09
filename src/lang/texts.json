@@ -7,6 +7,14 @@
       "Label": "Título de la caja",
       "Placeholder": "ej: Mis notas"
     },
+    "Errors": {
+      "NotConnected": "No tienes conexión con el servidor",
+      "Wrong": "Usuario o contraseña incorrecta",
+      "SomeWrong": "Ha ocurrido un error"
+    },
+    "Messages": {
+      "LoginSuccessful": "Se ha iniciado sesión correctamente"
+    },
     "Tooltips": {
       "Mode": {
         "ToDark": "Modo oscuro",

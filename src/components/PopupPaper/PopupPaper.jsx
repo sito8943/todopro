@@ -6,8 +6,6 @@ import { Paper } from "@mui/material";
 const PopupPaper = (props) => {
   const { visible, children, id } = props;
 
-  console.log(visible, id);
-
   return (
     <Paper
       id={id}

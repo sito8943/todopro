@@ -1,6 +1,6 @@
-import {useState, useEffect} from "react";
-import {useLocation} from "react-router-dom";
-import {Link} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -15,27 +15,26 @@ import SitoContainer from "sito-container";
 import RadialButton from "../../components/RadialButton/RadialButton";
 
 // contexts
-import {useLanguage} from "../../context/LanguageProvider";
+import { useLanguage } from "../../context/LanguageProvider";
 
 const Forgot = (props) => {
-    const {toggleMode, mode} = props;
+  const { toggleMode, mode } = props;
 
-    const location = useLocation();
+  const location = useLocation();
 
-    const [forgeting, setForgeting] = useState("")
+  const [forgeting, setForgeting] = useState("");
 
-    useEffect(() => {
-        const queryParams = location.search.substring(1);
-        setForgeting(queryParams);
-    }, [location])
+  useEffect(() => {
+    const queryParams = location.search.substring(1);
+    setForgeting(queryParams);
+  }, [location]);
 
-    return <SitoContainer>
-    </SitoContainer>;
+  return <SitoContainer></SitoContainer>;
 };
 
 Forgot.propTypes = {
-    toggleMode: PropTypes.func.isRequired,
-    mode: PropTypes.bool.isRequired,
-}
+  toggleMode: PropTypes.func.isRequired,
+  mode: PropTypes.bool.isRequired,
+};
 
 export default Forgot;

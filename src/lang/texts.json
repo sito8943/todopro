@@ -10,7 +10,10 @@
     "Errors": {
       "NotConnected": "No tienes conexión con el servidor",
       "Wrong": "Usuario o contraseña incorrecta",
-      "SomeWrong": "Ha ocurrido un error"
+      "SomeWrong": "Ha ocurrido un error",
+      "NameRequired": "Debes introducer el nombre de usuario",
+      "PasswordRequired": "Debes introducer la contraseña",
+      "EmailRequired": "Debes introducir la dirección de correo"
     },
     "Messages": {
       "LoginSuccessful": "Se ha iniciado sesión correctamente"
@@ -54,11 +57,7 @@
     "Login": {
       "Title": "Iniciar sesión",
       "Remember": "Recuérdame",
-      "Forgot": {
-        "Label": "¿Ocurrió algo?",
-        "Password": "Olvidé mi contraseña",
-        "User": "Olvidé mi usuario"
-      },
+      "Forgot": "Olvidé mi contraseña",
       "Submit": {
         "Submit": "Aceptar",
         "Register": "Registrarse",
@@ -69,11 +68,20 @@
           "Label": "Usuario",
           "Placeholder": "ej: juan"
         },
+        "Email": {
+          "Label": "Correo",
+          "Placeholder": "ej: juan@provider.com"
+        },
         "Password": {
           "Label": "Contraseña",
           "Placeholder": "ej: ********"
+        },
+        "RPassword": {
+          "Label": "Repetir contraseña"
         }
       }
-    }
+    },
+    "Forgot": { "Title": "Olvidé mi contraseña", "Back": "Volver" },
+    "Register": "Únetenos"
   }
 }

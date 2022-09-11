@@ -57,6 +57,11 @@ const dark = createTheme({
   },
   typography: {
     fontSize: 14,
+    fontFamily: [
+      "Poppins",
+      "Roboto",
+      "sans-serif",
+    ].join(","),
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,

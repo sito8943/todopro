@@ -55,13 +55,14 @@
       "Title": "Iniciar sesión",
       "Remember": "Recuérdame",
       "Forgot": {
-        "Label": "¿Ocurre algo?",
+        "Label": "¿Ocurrió algo?",
         "Password": "Olvidé mi contraseña",
         "User": "Olvidé mi usuario"
       },
       "Submit": {
-        "Login": "Aceptar",
-        "Register": "Registrarse"
+        "Submit": "Aceptar",
+        "Register": "Registrarse",
+        "Login": "Acceder"
       },
       "Inputs": {
         "User": {

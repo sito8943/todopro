@@ -1,7 +1,16 @@
 {
   "es": {
+    "appName": "Todo Pro",
     "sidebar": {
       "title": "Mis Notas"
+    },
+    "ariaLabels": {
+      "notifications": "Ver notificaciones",
+      "account": "Ver usuario"
+    },
+    "tooltips": {
+      "noNotifications": "No hay notificaciones",
+      "noAccounts": "Presiona para iniciar sesión"
     },
     "Inputs": [
       {

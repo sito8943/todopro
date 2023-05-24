@@ -18,6 +18,7 @@ import dark from "./assets/theme/dark";
 
 // components
 import Loading from "./components/Loading/Loading";
+const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const Sidebar = lazy(() => import("./components/Sidebar/Sidebar"));
 const Container = lazy(() => import("./components/Container/Container"));
 
@@ -128,11 +129,12 @@ const App = () => {
             flexDirection="column"
             sx={{
               width: "100%",
-              padding: "0 20px",
+              padding: "8px 20px",
               transition: "all 500ms ease",
               transform: showSidebar ? "" : "translateX(-250px)",
             }}
           >
+            <Navbar />
             <form className={formCss} onSubmit={handleSubmit(handleForm)}>
               {languageState.texts.Inputs.map((item, i) => (
                 <Container

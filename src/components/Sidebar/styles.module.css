@@ -1,6 +1,21 @@
 .sidebar {
+  padding: 0 20px;
   min-width: 300px;
   width: 300px;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 500ms ease;
+}
+
+.translate {
+  padding: 0 10px;
+  transform: translateX(-250px);
+}
+
+.titleRow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }

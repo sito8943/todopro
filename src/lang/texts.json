@@ -1,5 +1,8 @@
 {
   "es": {
+    "sidebar": {
+      "title": "Mis Notas"
+    },
     "Inputs": [
       {
         "id": "title",

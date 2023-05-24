@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 // @emotion
@@ -80,6 +80,12 @@ const App = () => {
     setLoading(false);
   }, []);
 
+  const [showSidebar, setShowSidebar] = useState(true);
+
+  const handleSidebar = useCallback(() => {
+    return setShowSidebar(!showSidebar);
+  }, [showSidebar]);
+
   return (
     <Suspense
       fallback={
@@ -101,11 +107,9 @@ const App = () => {
           sx={{
             justifyContent: "flex-start",
             alignItems: "flex-start",
-
             width: "100vw",
             height: "100vh",
           }}
-          className="App"
         >
           {loading ? (
             <Loading
@@ -119,10 +123,15 @@ const App = () => {
               }}
             />
           ) : null}
-          <Sidebar />
+          <Sidebar open={showSidebar} handleClose={handleSidebar} />
           <Container
             flexDirection="column"
-            sx={{ width: "80%", maxWidth: "400px" }}
+            sx={{
+              width: "100%",
+              padding: "0 20px",
+              transition: "all 500ms ease",
+              transform: showSidebar ? "" : "translateX(-250px)",
+            }}
           >
             <form className={formCss} onSubmit={handleSubmit(handleForm)}>
               {languageState.texts.Inputs.map((item, i) => (

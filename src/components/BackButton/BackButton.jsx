@@ -1,10 +1,12 @@
+import React from "react";
+
 import { Link } from "react-router-dom";
 
 // @mui components
-import { Button } from "@mui/material";
+import Button from "../MUI/Button";
 
 // @mui icons
-import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import { Chevron } from "@mui/icons-material/";
 
 // own components
 import Container from "../Container/Container";
@@ -18,7 +20,7 @@ const BackButton = () => {
           color="primary"
           sx={{ minWidth: 0, borderRadius: "100%", padding: "5px" }}
         >
-          <ChevronLeft />
+          <Chevron />
         </Button>
       </Link>
     </Container>

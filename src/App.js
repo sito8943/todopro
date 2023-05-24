@@ -1,34 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 // @emotion
 import { css } from "@emotion/css";
 
 // @mui icons
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { AddCircle, Delete, Edit } from "@mui/icons-material/";
 
 // @mui
-import {
-  ThemeProvider,
-  CssBaseline,
-  Paper,
-  IconButton,
-  Typography,
-  TextField,
-} from "@mui/material";
-
-// theme
-import dark from "./assets/theme/dark";
-
-import Container from "./components/Container/Container";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 
 // contexts
 import { useLanguage } from "./context/LanguageProvider";
 
-// context
-import { useNotification } from "./context/NotificationProvider";
+// theme
+import dark from "./assets/theme/dark";
+
+// components
+import Loading from "./components/Loading/Loading";
+const Sidebar = lazy(() => import("./components/Sidebar/Sidebar"));
+const Container = lazy(() => import("./components/Container/Container"));
+
+// @mui/components
+const Paper = lazy(() => import("./components/MUI/Paper"));
+const TextField = lazy(() => import("./components/MUI/TextField"));
+const IconButton = lazy(() => import("./components/MUI/IconButton"));
+const Typography = lazy(() => import("./components/MUI/Typography"));
 
 const App = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -50,6 +47,7 @@ const App = () => {
 
   const formCss = css({
     width: "100%",
+    paddingTop: "1.5rem",
   });
 
   const onEdit = (e) => {
@@ -69,11 +67,6 @@ const App = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log(notes);
-  }, []);
-
-  useEffect(() => {
-    console.log(count);
     if (title !== "" && content !== "") {
       notes.push({ title, content });
       setTitle("");
@@ -82,111 +75,143 @@ const App = () => {
     }
   }, [count]);
 
-  return (
-    <ThemeProvider theme={dark}>
-      <CssBaseline />
-      {/*<Notification
-        visible={showNotification}
-        type={notificationType}
-        text={notificationText}
-        onClose={handleNotificationClose}
-      />*/}
-      <Container
-        justifyContent="center"
-        sx={{ paddingTop: "1.5rem", width: "100vw", height: "100vh" }}
-        className="App"
-      >
-        <Container
-          flexDirection="column"
-          sx={{ width: "80%", maxWidth: "400px" }}
-        >
-          <form className={formCss} onSubmit={handleSubmit(handleForm)}>
-            {languageState.texts.Inputs.map((item, i) => (
-              <Container
-                key={item.id}
-                sx={{ position: i === 0 ? "relative" : undefined }}
-              >
-                <TextField
-                  label={item.label}
-                  id={item.id}
-                  type={item.type}
-                  multiline={item.multiline}
-                  minRows={item.minRows}
-                  maxRows={item.maxRows}
-                  placeholder={item.placeholder}
-                  sx={inputSx[i]}
-                  {...register(item.id)}
-                  required
-                />
-                {i === 0 && (
-                  <IconButton
-                    type="submit"
-                    color="primary"
-                    sx={{
-                      position: "absolute",
-                      transform: "translateY(-50%)",
-                      top: "50%",
-                      right: "0px",
-                    }}
-                  >
-                    <AddCircleIcon />
-                  </IconButton>
-                )}
-              </Container>
-            ))}
-          </form>
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
+  return (
+    <Suspense
+      fallback={
+        <Loading
+          sx={{
+            width: "100%",
+            height: "100vh",
+            position: "absolute",
+            left: 0,
+            top: 0,
+            zIndex: 99,
+          }}
+        />
+      }
+    >
+      <ThemeProvider theme={dark}>
+        <CssBaseline />
+        <Container
+          sx={{
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+
+            width: "100vw",
+            height: "100vh",
+          }}
+          className="App"
+        >
+          {loading ? (
+            <Loading
+              sx={{
+                width: "100%",
+                height: "100%",
+                position: "fixed",
+                left: 0,
+                top: 0,
+                zIndex: 99,
+              }}
+            />
+          ) : null}
+          <Sidebar />
           <Container
-            sx={{
-              marginTop: "20px",
-              width: "100%",
-            }}
+            flexDirection="column"
+            sx={{ width: "80%", maxWidth: "400px" }}
           >
-            <Container flexDirection="column" sx={{ width: "100%" }}>
-              {notes.map((item, i) => (
-                <Paper
-                  elevation={3}
-                  sx={{
-                    width: "100%",
-                    marginTop: i > 0 ? "20px" : "0",
-                    padding: "1.3rem",
-                    animation: "scale 0.5s ease",
-                  }}
+            <form className={formCss} onSubmit={handleSubmit(handleForm)}>
+              {languageState.texts.Inputs.map((item, i) => (
+                <Container
+                  key={item.id}
+                  sx={{ position: i === 0 ? "relative" : undefined }}
                 >
-                  <Container
-                    flexDirection="column"
+                  <TextField
+                    label={item.label}
+                    id={item.id}
+                    type={item.type}
+                    multiline={item.multiline}
+                    minRows={item.minRows}
+                    maxRows={item.maxRows}
+                    placeholder={item.placeholder}
+                    sx={inputSx[i]}
+                    {...register(item.id)}
+                    required
+                  />
+                  {i === 0 && (
+                    <IconButton
+                      type="submit"
+                      color="primary"
+                      sx={{
+                        position: "absolute",
+                        transform: "translateY(-50%)",
+                        top: "50%",
+                        right: "0px",
+                      }}
+                    >
+                      <AddCircle />
+                    </IconButton>
+                  )}
+                </Container>
+              ))}
+            </form>
+
+            <Container
+              sx={{
+                marginTop: "20px",
+                width: "100%",
+              }}
+            >
+              <Container flexDirection="column" sx={{ width: "100%" }}>
+                {notes.map((item, i) => (
+                  <Paper
+                    elevation={3}
                     sx={{
                       width: "100%",
+                      marginTop: i > 0 ? "20px" : "0",
+                      padding: "1.3rem",
+                      animation: "scale 0.5s ease",
                     }}
                   >
-                    <Container key={i} justifyContent="space-between">
-                      <Typography variant="h5">{item.title}</Typography>
-                      <Container>
-                        <IconButton
-                          onClick={onEdit}
-                          id={`edit-${i}`}
-                          color="primary"
-                        >
-                          <EditIcon id={`svgEdit-${i}`} />
-                        </IconButton>
-                        <IconButton
-                          onClick={onDelete}
-                          id={`delete-${i}`}
-                          color="primary"
-                        >
-                          <DeleteIcon id={`svgDelete-${i}`} />
-                        </IconButton>
+                    <Container
+                      flexDirection="column"
+                      sx={{
+                        width: "100%",
+                      }}
+                    >
+                      <Container key={i} justifyContent="space-between">
+                        <Typography variant="h5">{item.title}</Typography>
+                        <Container>
+                          <IconButton
+                            onClick={onEdit}
+                            id={`edit-${i}`}
+                            color="primary"
+                          >
+                            <Edit id={`svgEdit-${i}`} />
+                          </IconButton>
+                          <IconButton
+                            onClick={onDelete}
+                            id={`delete-${i}`}
+                            color="primary"
+                          >
+                            <Delete id={`svgDelete-${i}`} />
+                          </IconButton>
+                        </Container>
                       </Container>
+                      <Typography variant="body1">{item.content}</Typography>
                     </Container>
-                    <Typography variant="body1">{item.content}</Typography>
-                  </Container>
-                </Paper>
-              ))}
+                  </Paper>
+                ))}
+              </Container>
             </Container>
           </Container>
         </Container>
-      </Container>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Suspense>
   );
 };
 

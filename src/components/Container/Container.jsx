@@ -1,14 +1,13 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/prop-types */
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 
 // @emotion/css
 import { css } from "@emotion/css";
 
 // prop-types
 import PropTypes from "prop-types";
-import { Box } from "@mui/material";
 
 const Container = forwardRef((props, ref) => {
   const {
@@ -35,7 +34,7 @@ const Container = forwardRef((props, ref) => {
   });
 
   return (
-    <Box
+    <div
       ref={ref}
       component={component}
       style={style}
@@ -45,7 +44,7 @@ const Container = forwardRef((props, ref) => {
       {...extraProps}
     >
       {children}
-    </Box>
+    </div>
   );
 });
 

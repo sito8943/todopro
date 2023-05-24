@@ -1,13 +1,16 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/jsx-props-no-spreading */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // prop types
 import PropTypes from "prop-types";
 
 // @mui components
-import { Tabs, Tab, Typography, Box } from "@mui/material";
+import Box from "../MUI/Box";
+import Tab from "../MUI/Tab";
+import Tabs from "../MUI/Tabs";
+import Typography from "../MUI/Typography";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

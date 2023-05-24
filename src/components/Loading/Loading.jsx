@@ -1,16 +1,18 @@
+import React from "react";
+
 // prop-types
 import PropTypes from "prop-types";
 
-// @mui components
-import { Box } from "@mui/material";
+// components
+import Container from "../Container/Container";
 
-// @mui icons
-import LoopIcon from "@mui/icons-material/Loop";
+// styles
+import "./styles.css";
 
 const Loading = (props) => {
   const { sx } = props;
   return (
-    <Box
+    <Container
       sx={{
         display: "flex",
         alignItems: "center",
@@ -19,8 +21,22 @@ const Loading = (props) => {
         ...sx,
       }}
     >
-      <LoopIcon sx={{ fontSize: "3rem" }} className="loading" color="primary" />
-    </Box>
+      <div className="loader-container">
+        <div className="loader">
+          <svg className="circular" viewBox="25 25 50 50">
+            <circle
+              className={`path`}
+              cx="50"
+              cy="50"
+              r="20"
+              fill="none"
+              strokeWidth="4"
+              strokeMiterlimit="10"
+            />
+          </svg>
+        </div>
+      </div>
+    </Container>
   );
 };
 

@@ -1,6 +1,10 @@
+import React from "react";
+
+// @mui
+import Typography from "../MUI/Typography";
+
 // @mui icons
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import { Typography } from "@mui/material";
+import { ReceiptLong } from "@mui/icons-material/";
 
 // own components
 import Container from "../Container/Container";
@@ -13,7 +17,7 @@ const Empty = () => {
       sx={{ width: "100%", height: "100%", marginTop: "150px" }}
       flexDirection="column"
     >
-      <ReceiptLongIcon color="primary" sx={{ fontSize: "4rem" }} />
+      <ReceiptLong color="primary" sx={{ fontSize: "4rem" }} />
       <Typography color="primary" variant="h4">
         No hay datos
       </Typography>

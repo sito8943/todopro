@@ -4,6 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // @mui
 import { ThemeProvider, CssBaseline } from "@mui/material";
 
+// contexts
+import { useNotes } from "./context/NotesProvider";
+import { useLanguage } from "./context/LanguageProvider";
+
 // theme
 import dark from "./assets/theme/dark";
 
@@ -17,6 +21,8 @@ const Container = lazy(() => import("./components/Container/Container"));
 const App = () => {
   const [loading, setLoading] = useState(true);
 
+  const { notesState, setNotesStates } = useNotes();
+
   useEffect(() => {
     setLoading(false);
   }, []);
@@ -26,6 +32,21 @@ const App = () => {
   const handleSidebar = useCallback(() => {
     return setShowSidebar(!showSidebar);
   }, [showSidebar]);
+
+  useEffect(() => {
+    if (notesState && Object.values(notesState).length)
+      localStorage.setItem("to-do-pro-notes", JSON.stringify(notesState));
+    if (
+      (!notesState || !Object.values(notesState).length) &&
+      localStorage.getItem("to-do-pro-notes") !== "null"
+    )
+      try {
+        const previous = localStorage.getItem("to-do-pro-notes");
+        setNotesStates({ type: "set", previous: JSON.parse(previous) });
+      } catch (err) {
+        console.error(err);
+      }
+  }, [notesState, setNotesStates]);
 
   return (
     <Suspense

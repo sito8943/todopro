@@ -47,11 +47,29 @@ function Note({ id, title, content, loading }) {
     return css({ textDecoration: "none" });
   }, []);
 
+  const operations = useMemo(() => {
+    return css({ position: "absolute", right: "0px" });
+  }, []);
+
+  const div = useMemo(() => {
+    return css({
+      margin: "20px 0",
+      width: "100%",
+      position: "relative",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+    });
+  }, []);
+
   const note = useMemo(() => {
     return languageState.texts.note;
   }, [languageState]);
 
-  const deleteNote = () => setNotesState({ type: "remove", id });
+  const deleteNote = (e) => {
+    setNotesState({ type: "remove", id });
+    e.preventDefault();
+  };
 
   const makeSmall = useMemo(() => {
     return css({
@@ -62,21 +80,21 @@ function Note({ id, title, content, loading }) {
 
   return (
     <Link className={container} to={`/edit?id=${id}`}>
-      <Button
-        fullWidth
-        sx={{
-          minWidth: 0,
-          minHeight: 0,
-          textTransform: "none",
-          padding: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          margin: "20px 0",
-        }}
-        className={` appear`}
-      >
-        <div className={`${makeSmall}`}>
+      <div className={`${div} appear`}>
+        <Button
+          sx={{
+            minWidth: 0,
+            minHeight: 0,
+            width: "100%",
+            textTransform: "none",
+            padding: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+          }}
+          className={`${makeSmall}`}
+        >
           <p className={`${noMargin} ${titleCss}`}>
             {title && title.length ? title.substring(0, 18) : note.noTitle}
             {title && title.length > 18 ? "..." : ""}
@@ -87,10 +105,10 @@ function Note({ id, title, content, loading }) {
               : note.noContent}
             {content && content.length > 19 ? "..." : ""}
           </p>
-        </div>
+        </Button>
 
         {!loading ? (
-          <div className="grow">
+          <div className={`${operations} grow`}>
             <IconButton color="primary">
               <Edit />
             </IconButton>
@@ -112,7 +130,7 @@ function Note({ id, title, content, loading }) {
             }}
           />
         )}
-      </Button>
+      </div>
     </Link>
   );
 }

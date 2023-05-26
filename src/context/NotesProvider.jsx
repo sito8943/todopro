@@ -12,7 +12,8 @@ const notesReducer = (notesState, action) => {
     case "add": {
       const { newNote } = action;
       const newNotes = { ...notesState };
-      newNote[newNote.id] = newNote;
+      newNotes[newNote.id] = newNote;
+
       return newNotes;
     }
     case "remove": {

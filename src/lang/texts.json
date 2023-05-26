@@ -1,8 +1,12 @@
 {
   "es": {
-    "appName": "Todo Pro",
+    "appName": "To-do Pro",
     "sidebar": {
       "title": "Mis Notas"
+    },
+    "note": {
+      "noTitle": "Nota sin título",
+      "noContent": "Nota sin contenido"
     },
     "ariaLabels": {
       "newNote": "Crear nueva nota",

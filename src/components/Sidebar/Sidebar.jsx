@@ -41,6 +41,7 @@ function Sidebar({ open, handleClose }) {
   }, [languageState]);
 
   const printNotes = useCallback(() => {
+    
     return sortBy(Object.values(notesState), "id", false).map((note) => (
       <Note key={note.id} {...note} />
     ));
@@ -62,7 +63,7 @@ function Sidebar({ open, handleClose }) {
         </IconButton>
       </div>
       <Button
-        ariaLabel={ariaLabels.newNote}
+        aria-label={ariaLabels.newNote}
         onClick={createNewNote}
         variant="contained"
         sx={{ width: "100%" }}

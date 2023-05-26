@@ -4,6 +4,9 @@ import ReactDOM from "react-dom/client";
 // fonts
 import "@fontsource/poppins";
 
+// animations
+import "./assets/animations/grow.css";
+import "./assets/animations/appear.css"
 // styles
 import "./index.css";
 import App from "./App";

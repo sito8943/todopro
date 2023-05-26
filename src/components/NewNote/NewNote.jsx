@@ -2,10 +2,13 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-lodash-debounce";
 
+import { parseQueries } from "some-javascript-utils/browser.js";
+
 // @emotion/css
 import { css } from "@emotion/css";
 
 // contexts
+import { useNotes } from "../../context/NotesProvider";
 import { useLanguage } from "../../context/LanguageProvider";
 
 // @mui/material
@@ -17,19 +20,56 @@ import Container from "../Container/Container";
 function NewNote({ showSidebar }) {
   const location = useLocation();
 
+  const { notesState, setNotesState } = useNotes();
+
+  const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const debouncedTitle = useDebounce(title, 1000);
 
-  const handleTitle = useCallback((e) => setTitle(e.target.value), []);
+  const handleTitle = useCallback(
+    (e) => {
+      if (id && id.length && notesState[id])
+        setNotesState({ type: "editing", id });
+      setTitle(e.target.value);
+    },
+    [id, notesState, setNotesState]
+  );
 
   const [content, setContent] = useState("");
   const debouncedContent = useDebounce(content, 1000);
 
-  const handleContent = useCallback((e) => setContent(e.target.value), []);
+  const handleContent = useCallback(
+    (e) => {
+      if (id && id.length && notesState[id])
+        setNotesState({ type: "editing", id });
+      setContent(e.target.value);
+    },
+    [id, notesState, setNotesState]
+  );
 
-  useEffect(() => {}, [debouncedContent, debouncedTitle]);
+  useEffect(() => {
+    console.log(id, debouncedContent, debouncedTitle);
+    if (id && id.length)
+      setNotesState({
+        type: "add",
+        newNote: { id, title: debouncedTitle, content: debouncedContent },
+      });
+  }, [id, debouncedContent, debouncedTitle, setNotesState]);
 
-  useEffect(() => {}, [location]);
+  useEffect(() => {
+    console.log(id);
+    if (id && id.length && notesState[id]) {
+      setTitle(notesState[id].title);
+      setContent(notesState[id].content);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const { search } = location;
+    const query = parseQueries(search);
+    console.log(query.id);
+    if (query.id) setId(query.id);
+  }, [location]);
 
   const { languageState } = useLanguage();
 
@@ -66,6 +106,7 @@ function NewNote({ showSidebar }) {
           placeholder={inputs.title.placeholder}
           value={title}
           sx={inputSx[0]}
+          disabled={!id || !id.length}
           onChange={handleTitle}
           required
         />
@@ -81,6 +122,7 @@ function NewNote({ showSidebar }) {
           placeholder={inputs.content.placeholder}
           value={content}
           sx={inputSx[1]}
+          disabled={!id || !id.length}
           onChange={handleContent}
           required
         />

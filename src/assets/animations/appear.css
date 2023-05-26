@@ -1,0 +1,14 @@
+.appear {
+  animation: appear 500ms ease 1;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(00px);
+  }
+}

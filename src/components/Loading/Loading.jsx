@@ -10,9 +10,10 @@ import Container from "../Container/Container";
 import "./styles.css";
 
 const Loading = (props) => {
-  const { sx } = props;
+  const { sx, className } = props;
   return (
     <Container
+      className={className}
       sx={{
         display: "flex",
         alignItems: "center",

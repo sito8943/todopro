@@ -8033,10 +8033,10 @@ sockjs@^0.3.21:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
-some-javascript-utils@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/some-javascript-utils/-/some-javascript-utils-0.8.2.tgz#106a5806744ea6b2926ddb8521a4cbce9c6b9d3c"
-  integrity sha512-FIcCrr67suSJEFD+JLlWg55BlpY+4D8Xq0cU9xgxPVWDy0LAGYBpkViQ0yuFmHV8y2U82pfaIPWuvjy98NaAbw==
+some-javascript-utils@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/some-javascript-utils/-/some-javascript-utils-0.8.3.tgz#479003ce1b7caf4239c1c4ab167f97bf102a01ec"
+  integrity sha512-NuCIFhSTU1EgMy6iwfguWIOq8+sNsSfX+SmYnPk6Zt9aJdOa4soICKYhlzKrZHiBoRoMXTGT+r9E3QGtDvNc5Q==
 
 source-list-map@^2.0.0, source-list-map@^2.0.1:
   version "2.0.1"

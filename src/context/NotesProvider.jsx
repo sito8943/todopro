@@ -15,6 +15,12 @@ const notesReducer = (notesState, action) => {
       newNotes[newNote.id] = newNote;
       return newNotes;
     }
+    case "editing": {
+      const { id } = action;
+      const newNotes = { ...notesState };
+      newNotes[id].loading = true;
+      return newNotes;
+    }
     case "remove": {
       const { id } = action;
       const newNotes = { ...notesState };

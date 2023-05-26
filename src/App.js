@@ -1,11 +1,18 @@
-import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from "react";
 import { useForm } from "react-hook-form";
 
 // @emotion
 import { css } from "@emotion/css";
 
 // @mui icons
-import { AddCircle, Delete, Edit } from "@mui/icons-material/";
+import { Delete, Edit } from "@mui/icons-material/";
 
 // @mui
 import { ThemeProvider, CssBaseline } from "@mui/material";
@@ -18,65 +25,19 @@ import dark from "./assets/theme/dark";
 
 // components
 import Loading from "./components/Loading/Loading";
+const NewNote = lazy(() => import("./components/NewNote/NewNote"));
 const Navbar = lazy(() => import("./components/Navbar/Navbar"));
 const Sidebar = lazy(() => import("./components/Sidebar/Sidebar"));
 const Container = lazy(() => import("./components/Container/Container"));
 
 // @mui/components
 const Paper = lazy(() => import("./components/MUI/Paper"));
-const TextField = lazy(() => import("./components/MUI/TextField"));
 const IconButton = lazy(() => import("./components/MUI/IconButton"));
 const Typography = lazy(() => import("./components/MUI/Typography"));
 
 const App = () => {
-  const { register, handleSubmit, reset } = useForm();
-  const { languageState } = useLanguage();
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
-  const [notes, setNotes] = useState([]);
-
-  const inputSx = [{ width: "100%" }, { marginTop: "20px", width: "100%" }];
-
-  const handleForm = (d) => {
-    const { title, content } = d;
-    setCount(count + 1);
-    setTitle(title);
-    setContent(content);
-  };
-
-  const formCss = css({
-    width: "100%",
-    paddingTop: "1.5rem",
-  });
-
-  const onEdit = (e) => {
-    const { id } = e.target;
-    const parsedId = id.split("-");
-    const numberId = Number(parsedId[1]);
-  };
-
-  const onDelete = (e) => {
-    const { id } = e.target;
-    const parsedId = id.split("-");
-    const numberId = Number(parsedId[1]);
-    setCount(count - 1);
-    notes.splice(numberId, 1);
-  };
-
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (title !== "" && content !== "") {
-      notes.push({ title, content });
-      setTitle("");
-      setContent("");
-      reset({ title: "", content: "" });
-    }
-  }, [count]);
-
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setLoading(false);
   }, []);
@@ -134,44 +95,18 @@ const App = () => {
               transform: showSidebar ? "" : "translateX(-250px)",
             }}
           >
-            <Navbar />
-            <form className={formCss} onSubmit={handleSubmit(handleForm)}>
-              {languageState.texts.Inputs.map((item, i) => (
-                <Container
-                  key={item.id}
-                  sx={{ position: i === 0 ? "relative" : undefined }}
-                >
-                  <TextField
-                    label={item.label}
-                    id={item.id}
-                    type={item.type}
-                    multiline={item.multiline}
-                    minRows={item.minRows}
-                    maxRows={item.maxRows}
-                    placeholder={item.placeholder}
-                    sx={inputSx[i]}
-                    {...register(item.id)}
-                    required
-                  />
-                  {i === 0 && (
-                    <IconButton
-                      type="submit"
-                      color="primary"
-                      sx={{
-                        position: "absolute",
-                        transform: "translateY(-50%)",
-                        top: "50%",
-                        right: "0px",
-                      }}
-                    >
-                      <AddCircle />
-                    </IconButton>
-                  )}
-                </Container>
-              ))}
-            </form>
-
             <Container
+              sx={{
+                flexDirection: "column",
+                transition: "all 500ms ease",
+                width: showSidebar ? "100%" : "calc(100vw - 90px)",
+              }}
+            >
+              <Navbar showSidebar={showSidebar} />
+              <NewNote showSidebar={showSidebar} />
+            </Container>
+
+            {/* <Container
               sx={{
                 marginTop: "20px",
                 width: "100%",
@@ -218,7 +153,7 @@ const App = () => {
                   </Paper>
                 ))}
               </Container>
-            </Container>
+            </Container> */}
           </Container>
         </Container>
       </ThemeProvider>

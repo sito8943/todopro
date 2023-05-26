@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 
+import { sortBy } from "some-javascript-utils/array";
+
 // @emotion/css
 import { css } from "@emotion/css";
 
@@ -7,8 +9,9 @@ import { css } from "@emotion/css";
 import { useTheme } from "@mui/material/styles";
 
 // @mui/icons-material
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { Add, ArrowBack, ArrowForward } from "@mui/icons-material";
 import IconButton from "../MUI/IconButton";
+import Button from "../MUI/Button";
 
 // contexts
 import { useLanguage } from "../../context/LanguageProvider";
@@ -24,21 +27,31 @@ function Sidebar({ open, handleClose }) {
   const theme = useTheme();
 
   const { languageState } = useLanguage();
-  const { notesState } = useNotes();
+  const { notesState, setNotesState } = useNotes();
 
   const bg = useMemo(() => {
     return css({ background: theme.palette.background.paper });
   }, [theme]);
 
-  const sidebar = useMemo(() => {
-    return languageState.texts.sidebar;
+  const { sidebar, ariaLabels } = useMemo(() => {
+    return {
+      sidebar: languageState.texts.sidebar,
+      ariaLabels: languageState.texts.ariaLabels,
+    };
   }, [languageState]);
 
   const printNotes = useCallback(() => {
-    return Object.values(notesState).map((note) => (
+    return sortBy(Object.values(notesState), "id", false).map((note) => (
       <Note key={note.id} {...note} />
     ));
   }, [notesState]);
+
+  const createNewNote = useCallback(() => {
+    setNotesState({
+      type: "add",
+      newNote: { id: new Date().getTime(), title: "", content: "" },
+    });
+  }, [setNotesState]);
 
   return (
     <div className={`${styles.sidebar} ${open ? "" : styles.translate} ${bg}`}>
@@ -48,6 +61,14 @@ function Sidebar({ open, handleClose }) {
           {open ? <ArrowBack /> : <ArrowForward />}
         </IconButton>
       </div>
+      <Button
+        ariaLabel={ariaLabels.newNote}
+        onClick={createNewNote}
+        variant="contained"
+        sx={{ width: "100%" }}
+      >
+        <Add />
+      </Button>
       <div>{printNotes()}</div>
     </div>
   );

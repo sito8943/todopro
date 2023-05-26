@@ -5,6 +5,7 @@
       "title": "Mis Notas"
     },
     "ariaLabels": {
+      "newNote": "Crear nueva nota",
       "notifications": "Ver notificaciones",
       "account": "Ver usuario"
     },
@@ -12,14 +13,14 @@
       "noNotifications": "No hay notificaciones",
       "noAccounts": "Presiona para iniciar sesión"
     },
-    "Inputs": [
-      {
+    "Inputs": {
+      "title": {
         "id": "title",
         "type": "text",
         "label": "Título",
         "placeholder": "ej: Mi nota"
       },
-      {
+      "content": {
         "id": "content",
         "type": "text",
         "label": "Contenido",
@@ -28,6 +29,6 @@
         "minRows": 4,
         "maxRows": 4
       }
-    ]
+    }
   }
 }

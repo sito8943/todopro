@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+// fonts
+import "@fontsource/poppins";
+
 // styles
 import "./index.css";
 import App from "./App";

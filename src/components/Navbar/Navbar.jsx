@@ -14,7 +14,7 @@ import { useLanguage } from "../../context/LanguageProvider";
 // styles
 import styles from "./styles.module.css";
 
-function Navbar() {
+function Navbar({ showSidebar }) {
   const { languageState } = useLanguage();
 
   const { appName, tooltips, ariaLabels } = useMemo(() => {
@@ -26,7 +26,7 @@ function Navbar() {
   }, [languageState]);
 
   return (
-    <div className={styles.navbar}>
+    <div className={`${styles.navbar} ${!showSidebar ? styles.full : ""}`}>
       <h1>{appName}</h1>
       <div>
         <Tooltip title={tooltips.noNotifications}>

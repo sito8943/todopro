@@ -6,6 +6,7 @@
     "@emotion/css": "^11.9.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@fontsource/poppins": "^5.0.1",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.7.0",
     "@mui/x-data-grid": "^5.10.0",
@@ -20,10 +21,11 @@
     "react-hook-form": "^7.31.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "some-javascript-utils": "^0.7.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
@@ -47,6 +49,8 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-direct-import": "^1.0.0"
+    "babel-plugin-direct-import": "^1.0.0",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.2.1"
   }
 }

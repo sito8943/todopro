@@ -1,29 +1,35 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useDebounce } from "use-lodash-debounce";
 
 // @emotion/css
 import { css } from "@emotion/css";
-
-// @mui icons
-import { AddCircle } from "@mui/icons-material/";
 
 // contexts
 import { useLanguage } from "../../context/LanguageProvider";
 
 // @mui/material
 import TextField from "../MUI/TextField";
-import IconButton from "../MUI/IconButton";
 
 // components
 import Container from "../Container/Container";
 
 function NewNote({ showSidebar }) {
+  const location = useLocation();
+
   const [title, setTitle] = useState("");
+  const debouncedTitle = useDebounce(title, 1000);
 
   const handleTitle = useCallback((e) => setTitle(e.target.value), []);
 
   const [content, setContent] = useState("");
+  const debouncedContent = useDebounce(content, 1000);
 
   const handleContent = useCallback((e) => setContent(e.target.value), []);
+
+  useEffect(() => {}, [debouncedContent, debouncedTitle]);
+
+  useEffect(() => {}, [location]);
 
   const { languageState } = useLanguage();
 
@@ -73,7 +79,7 @@ function NewNote({ showSidebar }) {
           minRows={inputs.content.minRows}
           maxRows={inputs.content.maxRows}
           placeholder={inputs.content.placeholder}
-          value={title}
+          value={content}
           sx={inputSx[1]}
           onChange={handleContent}
           required

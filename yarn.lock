@@ -8033,10 +8033,10 @@ sockjs@^0.3.21:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
-some-javascript-utils@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/some-javascript-utils/-/some-javascript-utils-0.7.1.tgz#a6e176952c00d199b477e2a9aebbd60585eaf3d6"
-  integrity sha512-JC7bX1xn6kEvPQuh8IfHjhaCjDRGjZoKxNatMz0cRYwhN6JWWi3Mrz2Owj259iacqHxKB8j/+4rNepdAGiCSew==
+some-javascript-utils@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/some-javascript-utils/-/some-javascript-utils-0.8.2.tgz#106a5806744ea6b2926ddb8521a4cbce9c6b9d3c"
+  integrity sha512-FIcCrr67suSJEFD+JLlWg55BlpY+4D8Xq0cU9xgxPVWDy0LAGYBpkViQ0yuFmHV8y2U82pfaIPWuvjy98NaAbw==
 
 source-list-map@^2.0.0, source-list-map@^2.0.1:
   version "2.0.1"
@@ -8682,6 +8682,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-lodash-debounce@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/use-lodash-debounce/-/use-lodash-debounce-1.3.0.tgz#b9807fe5131874c353220b1558fbc4b778dc6b00"
+  integrity sha512-qBLiqR+ozBXGEcdWRLjYtRv12jk34/SfPgs6gzyhyLJP1IqGITApw4GA2f2mpIxxDBs1vEuGnzz64oTVVyjDDg==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

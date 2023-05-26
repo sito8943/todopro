@@ -48,6 +48,25 @@ const App = () => {
       }
   }, [notesState, setNotesState]);
 
+  const [widthViewport, setWidthViewport] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const handleResize = () => {
+      setWidthViewport(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Suspense
       fallback={
@@ -90,24 +109,38 @@ const App = () => {
                       }}
                     />
                   ) : null}
-                  <Sidebar open={showSidebar} handleClose={handleSidebar} />
+                  <Sidebar
+                    widthViewport={widthViewport}
+                    open={showSidebar}
+                    handleClose={handleSidebar}
+                  />
                   <Container
+                    className="main"
                     flexDirection="column"
                     sx={{
                       width: "100%",
-                      padding: "8px 20px",
                       transition: "all 500ms ease",
-                      transform: showSidebar ? "" : "translateX(-250px)",
+                      transform:
+                        widthViewport < 600 || showSidebar
+                          ? ""
+                          : "translateX(-250px)",
                     }}
                   >
                     <Container
                       sx={{
                         flexDirection: "column",
                         transition: "all 500ms ease",
-                        width: showSidebar ? "100%" : "calc(100vw - 90px)",
+                        width:
+                          widthViewport < 600 || showSidebar
+                            ? "100%"
+                            : "calc(100vw - 90px)",
                       }}
                     >
-                      <Navbar showSidebar={showSidebar} />
+                      <Navbar
+                        widthViewport={widthViewport}
+                        showSidebar={showSidebar}
+                        toggleSidebar={handleSidebar}
+                      />
                       <NewNote showSidebar={showSidebar} />
                     </Container>
                   </Container>

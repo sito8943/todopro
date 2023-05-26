@@ -1,11 +1,14 @@
-import React, { memo, useMemo } from "react";
-import { Link } from "react-router-dom";
+import React, { memo, useMemo, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+import { parseQueries } from "some-javascript-utils/browser";
 
 // @emotion/css
 import { css } from "@emotion/css";
 
 // @mui/icons-material
 import { Edit, Delete } from "@mui/icons-material";
+
 // @mui
 import Button from "../../MUI/Button";
 import IconButton from "../../MUI/IconButton";
@@ -18,6 +21,8 @@ import { useLanguage } from "../../../context/LanguageProvider";
 import Loading from "../../Loading/Loading";
 
 function Note({ id, title, content, loading }) {
+  const location = useLocation();
+
   const { setNotesState } = useNotes();
 
   const { languageState } = useLanguage();
@@ -53,7 +58,6 @@ function Note({ id, title, content, loading }) {
 
   const div = useMemo(() => {
     return css({
-      margin: "20px 0",
       width: "100%",
       position: "relative",
       display: "flex",
@@ -78,6 +82,14 @@ function Note({ id, title, content, loading }) {
     });
   }, [loading]);
 
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const { search } = location;
+    const query = parseQueries(search);
+    if (query.id === id) setActive(true);
+  }, [location, id]);
+
   return (
     <Link className={container} to={`/edit?id=${id}`}>
       <div className={`${div} appear`}>
@@ -87,11 +99,12 @@ function Note({ id, title, content, loading }) {
             minHeight: 0,
             width: "100%",
             textTransform: "none",
-            padding: 0,
+            padding: "10px 10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
             justifyContent: "space-between",
+            backgroundColor: active ? "rgba(33, 150, 243, 0.04)" : "inherit",
           }}
           className={`${makeSmall}`}
         >

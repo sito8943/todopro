@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 // @mui/icons-material
-import { Notifications, AccountCircle } from "@mui/icons-material";
+import { Notifications, AccountCircle, Menu } from "@mui/icons-material";
 
 // @mui/components
 import Badge from "../MUI/Badge";
@@ -14,7 +14,7 @@ import { useLanguage } from "../../context/LanguageProvider";
 // styles
 import styles from "./styles.module.css";
 
-function Navbar({ showSidebar }) {
+function Navbar({ showSidebar, toggleSidebar, widthViewport }) {
   const { languageState } = useLanguage();
 
   const { appName, tooltips, ariaLabels } = useMemo(() => {
@@ -26,8 +26,21 @@ function Navbar({ showSidebar }) {
   }, [languageState]);
 
   return (
-    <div className={`${styles.navbar} ${!showSidebar ? styles.full : ""}`}>
-      <h1>{appName}</h1>
+    <div
+      className={`${styles.navbar} ${
+        widthViewport < 600 || !showSidebar ? styles.full : ""
+      }`}
+    >
+      <h1>
+        <IconButton
+          onClick={toggleSidebar}
+          color="primary"
+          className={styles.menuButton}
+        >
+          <Menu />
+        </IconButton>
+        {appName}
+      </h1>
       <div>
         <Tooltip title={tooltips.noNotifications}>
           <IconButton color="primary" aria-label={ariaLabels.notifications}>

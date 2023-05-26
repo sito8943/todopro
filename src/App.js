@@ -133,7 +133,7 @@ const App = () => {
                         width:
                           widthViewport < 600 || showSidebar
                             ? "100%"
-                            : "calc(100vw - 90px)",
+                            : "calc(100vw - 50px)",
                       }}
                     >
                       <Navbar
@@ -141,7 +141,7 @@ const App = () => {
                         showSidebar={showSidebar}
                         toggleSidebar={handleSidebar}
                       />
-                      <NewNote showSidebar={showSidebar} />
+                      <NewNote widthViewport={widthViewport} />
                     </Container>
                   </Container>
                 </Container>

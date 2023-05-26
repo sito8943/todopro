@@ -1,8 +1,13 @@
 import React, { useMemo } from "react";
 
+// @emotion/css
+import { css } from "@emotion/css";
+
 // @mui/icons-material
 import { Notifications, AccountCircle, Menu } from "@mui/icons-material";
 
+// @mui/material
+import { useTheme } from "@mui/material/styles";
 // @mui/components
 import Badge from "../MUI/Badge";
 import Tooltip from "../MUI/Tooltip";
@@ -15,7 +20,15 @@ import { useLanguage } from "../../context/LanguageProvider";
 import styles from "./styles.module.css";
 
 function Navbar({ showSidebar, toggleSidebar, widthViewport }) {
+  const theme = useTheme();
+
   const { languageState } = useLanguage();
+
+  const bg = useMemo(() => {
+    return css({
+      background: widthViewport < 600 ? theme.palette.background.paper : "",
+    });
+  }, [theme, widthViewport]);
 
   const { appName, tooltips, ariaLabels } = useMemo(() => {
     return {
@@ -29,7 +42,7 @@ function Navbar({ showSidebar, toggleSidebar, widthViewport }) {
     <div
       className={`${styles.navbar} ${
         widthViewport < 600 || !showSidebar ? styles.full : ""
-      }`}
+      } ${bg}`}
     >
       <h1>
         <IconButton

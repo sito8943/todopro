@@ -1,0 +1,10 @@
+.main {
+  padding: 8px 20px;
+  height: calc(100vh - 76px);
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 8px 10px;
+  }
+}

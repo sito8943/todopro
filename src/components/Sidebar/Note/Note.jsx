@@ -53,7 +53,7 @@ function Note({ id, title, content, loading }) {
   }, []);
 
   const operations = useMemo(() => {
-    return css({ position: "absolute", right: "0px" });
+    return css({ position: "absolute", right: "10px" });
   }, []);
 
   const div = useMemo(() => {
@@ -88,6 +88,7 @@ function Note({ id, title, content, loading }) {
     const { search } = location;
     const query = parseQueries(search);
     if (query.id === id) setActive(true);
+    else setActive(false);
   }, [location, id]);
 
   return (
@@ -99,12 +100,12 @@ function Note({ id, title, content, loading }) {
             minHeight: 0,
             width: "100%",
             textTransform: "none",
-            padding: "10px 10px",
+            padding: "10px 20px",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
             justifyContent: "space-between",
-            backgroundColor: active ? "rgba(33, 150, 243, 0.04)" : "inherit",
+            backgroundColor: active ? "rgba(33, 150, 243, 0.04)" : "initial",
           }}
           className={`${makeSmall}`}
         >

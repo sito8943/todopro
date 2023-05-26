@@ -17,7 +17,10 @@ import TextField from "../MUI/TextField";
 // components
 import Container from "../Container/Container";
 
-function NewNote({ showSidebar }) {
+// styles
+import styles from "./styles.module.css";
+
+function NewNote({ widthViewport }) {
   const location = useLocation();
 
   const { notesState, setNotesState } = useNotes();
@@ -78,7 +81,10 @@ function NewNote({ showSidebar }) {
     return languageState.texts.Inputs;
   }, [languageState]);
 
-  const inputSx = [{ width: "100%" }, { marginTop: "20px", width: "100%" }];
+  const inputSx = [
+    { width: "100%" },
+    { marginTop: "20px", width: "100%", height: "100%" },
+  ];
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -95,8 +101,13 @@ function NewNote({ showSidebar }) {
   );
 
   return (
-    <form className={formCss} onSubmit={handleForm}>
-      <Container sx={{ position: "relative" }}>
+    <form className={`${formCss} ${styles.main}`} onSubmit={handleForm}>
+      <Container
+        sx={{
+          position: "relative",
+          marginTop: widthViewport < 600 ? "20px" : 0,
+        }}
+      >
         <TextField
           label={inputs.title.label}
           id={inputs.title.id}
@@ -119,7 +130,6 @@ function NewNote({ showSidebar }) {
           type={inputs.content.type}
           multiline={inputs.content.multiline}
           minRows={inputs.content.minRows}
-          maxRows={inputs.content.maxRows}
           placeholder={inputs.content.placeholder}
           value={content}
           sx={inputSx[1]}

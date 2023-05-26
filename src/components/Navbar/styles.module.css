@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   transition: "all 500ms ease";
+  padding: 38px 20px;
 }
 
 .navbar h1 {
@@ -15,5 +16,11 @@
 @media (min-width: 601px) {
   .menuButton {
     display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 38px 0px;
   }
 }

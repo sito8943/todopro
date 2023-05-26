@@ -100,7 +100,7 @@ function Note({ id, title, content, loading }) {
             minHeight: 0,
             width: "100%",
             textTransform: "none",
-            padding: "10px 20px",
+            padding: "10px 10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",

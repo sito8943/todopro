@@ -4,13 +4,11 @@ import React, { useMemo } from "react";
 import { css } from "@emotion/css";
 
 // @mui/icons-material
-import { Notifications, AccountCircle, Menu } from "@mui/icons-material";
+import { Menu } from "@mui/icons-material";
 
 // @mui/material
 import { useTheme } from "@mui/material/styles";
 // @mui/components
-import Badge from "../MUI/Badge";
-import Tooltip from "../MUI/Tooltip";
 import IconButton from "../MUI/IconButton";
 
 // contexts
@@ -30,7 +28,7 @@ function Navbar({ showSidebar, toggleSidebar, widthViewport }) {
     });
   }, [theme, widthViewport]);
 
-  const { appName, tooltips, ariaLabels } = useMemo(() => {
+  const { appName } = useMemo(() => {
     return {
       appName: languageState.texts.appName,
       ariaLabels: languageState.texts.ariaLabels,

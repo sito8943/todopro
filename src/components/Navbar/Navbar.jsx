@@ -54,20 +54,6 @@ function Navbar({ showSidebar, toggleSidebar, widthViewport }) {
         </IconButton>
         {appName}
       </h1>
-      <div>
-        <Tooltip title={tooltips.noNotifications}>
-          <IconButton color="primary" aria-label={ariaLabels.notifications}>
-            <Badge>
-              <Notifications />
-            </Badge>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title={tooltips.noAccounts} aria-label={ariaLabels.account}>
-          <IconButton color="primary">
-            <AccountCircle />
-          </IconButton>
-        </Tooltip>
-      </div>
     </div>
   );
 }

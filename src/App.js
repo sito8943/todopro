@@ -21,7 +21,7 @@ const Container = lazy(() => import("./components/Container/Container"));
 const App = () => {
   const [loading, setLoading] = useState(true);
 
-  const { notesState, setNotesStates } = useNotes();
+  const { notesState, setNotesState } = useNotes();
 
   useEffect(() => {
     setLoading(false);
@@ -42,11 +42,11 @@ const App = () => {
     )
       try {
         const previous = localStorage.getItem("to-do-pro-notes");
-        setNotesStates({ type: "set", previous: JSON.parse(previous) });
+        setNotesState({ type: "set", previous: JSON.parse(previous) });
       } catch (err) {
         console.error(err);
       }
-  }, [notesState, setNotesStates]);
+  }, [notesState, setNotesState]);
 
   return (
     <Suspense

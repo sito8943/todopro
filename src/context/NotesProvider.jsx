@@ -15,6 +15,10 @@ const notesReducer = (notesState, action) => {
       newNotes[newNote.id] = newNote;
       return newNotes;
     }
+    case "set": {
+      const { previous } = action;
+      return previous;
+    }
     case "editing": {
       const { id } = action;
       const newNotes = { ...notesState };

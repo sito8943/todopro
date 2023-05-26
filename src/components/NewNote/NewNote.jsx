@@ -48,26 +48,27 @@ function NewNote({ showSidebar }) {
   );
 
   useEffect(() => {
-    console.log(id, debouncedContent, debouncedTitle);
     if (id && id.length)
       setNotesState({
         type: "add",
         newNote: { id, title: debouncedTitle, content: debouncedContent },
       });
-  }, [id, debouncedContent, debouncedTitle, setNotesState]);
+  }, [debouncedContent, debouncedTitle, setNotesState]);
 
   useEffect(() => {
-    console.log(id);
     if (id && id.length && notesState[id]) {
+      console.log(notesState[id].title);
       setTitle(notesState[id].title);
       setContent(notesState[id].content);
+    } else {
+      setTitle("");
+      setContent("");
     }
   }, [id]);
 
   useEffect(() => {
     const { search } = location;
     const query = parseQueries(search);
-    console.log(query.id);
     if (query.id) setId(query.id);
   }, [location]);
 

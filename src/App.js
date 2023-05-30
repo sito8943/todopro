@@ -53,7 +53,10 @@ const App = () => {
 
   useEffect(() => {
     try {
-      setLanguageState({ type: "set", lang: getUserLanguage("to-do-pro-lang") });
+      setLanguageState({
+        type: "set",
+        lang: getUserLanguage("to-do-pro-lang"),
+      });
     } catch (err) {
       console.error(err);
     }

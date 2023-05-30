@@ -1,6 +1,11 @@
 {
   "es": {
     "appName": "To-do Pro",
+    "authDialog": {
+      "signIn": {
+        "title": "Iniciar sesión"
+      }
+    },
     "sidebar": {
       "title": "Mis Notas"
     },

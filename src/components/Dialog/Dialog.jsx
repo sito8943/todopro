@@ -1,5 +1,8 @@
 import React from "react";
 
+// @emotion/css
+import { css } from "@emotion/css";
+
 // @mui/material
 import { useTheme } from "@mui/material/styles";
 
@@ -11,12 +14,12 @@ function Dialog(props) {
 
   const { className, transition, children } = props;
   return (
-    <div className={`${styles.dialogContainer} ${transition}`}>
-      <div
-        className={`${styles.dialog} ${theme.palette.background.paper} ${className}`}
-      >
-        {children}
-      </div>
+    <div
+      className={`${styles.dialogContainer} ${css({
+        background: `${theme.palette.primary.main}22`,
+      })} ${transition}`}
+    >
+      <div className={`${styles.dialog} ${className}`}>{children}</div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ const languageReducer = (languageState, action) => {
     case "set":
       return {
         lang: action.lang,
-        texts: texts[action.lang],
+        texts: texts[action.lang] || texts.es,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);

@@ -4,6 +4,12 @@
     "authDialog": {
       "signIn": {
         "title": "Iniciar sesión"
+      },
+      "inputs": {
+        "user": {
+          "label": "Usuario",
+          "placeholder": "Introduce tu usuario"
+        }
       }
     },
     "sidebar": {
@@ -34,42 +40,6 @@
         "type": "text",
         "label": "Contenido",
         "placeholder": "Escribe aquí...",
-        "multiline": true,
-        "minRows": 4,
-        "maxRows": 4
-      }
-    }
-  },
-  "en": {
-    "appName": "To-do Pro",
-    "sidebar": {
-      "title": "My Notes"
-    },
-    "note": {
-      "noTitle": "No title",
-      "noContent": "No content"
-    },
-    "ariaLabels": {
-      "newNote": "Create new note",
-      "notifications": "Notifications",
-      "account": "User info"
-    },
-    "tooltips": {
-      "noNotifications": "No notifications",
-      "noAccounts": "Click to sign in"
-    },
-    "Inputs": {
-      "title": {
-        "id": "title",
-        "type": "text",
-        "label": "Title",
-        "placeholder": "ej: My Note"
-      },
-      "content": {
-        "id": "content",
-        "type": "text",
-        "label": "Content",
-        "placeholder": "Type here...",
         "multiline": true,
         "minRows": 4,
         "maxRows": 4

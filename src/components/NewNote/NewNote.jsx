@@ -60,7 +60,6 @@ function NewNote({ widthViewport }) {
 
   useEffect(() => {
     if (id && id.length && notesState[id]) {
-      console.log(notesState[id].title);
       setTitle(notesState[id].title);
       setContent(notesState[id].content);
     } else {

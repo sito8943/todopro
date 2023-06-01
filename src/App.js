@@ -1,6 +1,8 @@
 import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { getUserLanguage } from "some-javascript-utils/browser";
+
 // @mui
 import { ThemeProvider, CssBaseline } from "@mui/material";
 
@@ -21,11 +23,8 @@ const Container = lazy(() => import("./components/Container/Container"));
 const App = () => {
   const [loading, setLoading] = useState(true);
 
+  const { setLanguageState } = useLanguage();
   const { notesState, setNotesState } = useNotes();
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   const [showSidebar, setShowSidebar] = useState(true);
 
@@ -53,6 +52,16 @@ const App = () => {
   );
 
   useEffect(() => {
+    try {
+      setLanguageState({
+        type: "set",
+        lang: getUserLanguage("to-do-pro-lang"),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    setLoading(false);
+
     if (typeof window === "undefined") {
       return;
     }

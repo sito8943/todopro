@@ -86,8 +86,9 @@ function Note({ id, title, content, loading }) {
 
   useEffect(() => {
     const { search } = location;
+
     const query = parseQueries(search);
-    if (query.id === id) setActive(true);
+    if (query.id === String(id)) setActive(true);
     else setActive(false);
   }, [location, id]);
 
@@ -100,7 +101,7 @@ function Note({ id, title, content, loading }) {
             minHeight: 0,
             width: "100%",
             textTransform: "none",
-            padding: "10px 20px",
+            padding: "10px 10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",

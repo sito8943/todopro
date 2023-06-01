@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/todopro/static/css/main.355cf3a7.css",
-    "main.js": "/todopro/static/js/main.71cfdc6d.js",
+    "main.js": "/todopro/static/js/main.b6a5697d.js",
     "static/css/303.eb121a4e.chunk.css": "/todopro/static/css/303.eb121a4e.chunk.css",
     "static/js/303.29cde1c9.chunk.js": "/todopro/static/js/303.29cde1c9.chunk.js",
     "static/css/567.1562a557.chunk.css": "/todopro/static/css/567.1562a557.chunk.css",
     "static/js/567.13a9581f.chunk.js": "/todopro/static/js/567.13a9581f.chunk.js",
     "static/css/733.38ad9319.chunk.css": "/todopro/static/css/733.38ad9319.chunk.css",
-    "static/js/733.a809849e.chunk.js": "/todopro/static/js/733.a809849e.chunk.js",
+    "static/js/733.60f309e6.chunk.js": "/todopro/static/js/733.60f309e6.chunk.js",
     "static/js/181.04119b4d.chunk.js": "/todopro/static/js/181.04119b4d.chunk.js",
     "static/js/630.f7f1430f.chunk.js": "/todopro/static/js/630.f7f1430f.chunk.js",
     "static/js/909.7ee26abf.chunk.js": "/todopro/static/js/909.7ee26abf.chunk.js",
@@ -19,19 +19,19 @@
     "static/media/poppins-latin-ext-400-normal.woff2": "/todopro/static/media/poppins-latin-ext-400-normal.4f38b4331448d2313adc.woff2",
     "index.html": "/todopro/index.html",
     "main.355cf3a7.css.map": "/todopro/static/css/main.355cf3a7.css.map",
-    "main.71cfdc6d.js.map": "/todopro/static/js/main.71cfdc6d.js.map",
+    "main.b6a5697d.js.map": "/todopro/static/js/main.b6a5697d.js.map",
     "303.eb121a4e.chunk.css.map": "/todopro/static/css/303.eb121a4e.chunk.css.map",
     "303.29cde1c9.chunk.js.map": "/todopro/static/js/303.29cde1c9.chunk.js.map",
     "567.1562a557.chunk.css.map": "/todopro/static/css/567.1562a557.chunk.css.map",
     "567.13a9581f.chunk.js.map": "/todopro/static/js/567.13a9581f.chunk.js.map",
     "733.38ad9319.chunk.css.map": "/todopro/static/css/733.38ad9319.chunk.css.map",
-    "733.a809849e.chunk.js.map": "/todopro/static/js/733.a809849e.chunk.js.map",
+    "733.60f309e6.chunk.js.map": "/todopro/static/js/733.60f309e6.chunk.js.map",
     "181.04119b4d.chunk.js.map": "/todopro/static/js/181.04119b4d.chunk.js.map",
     "630.f7f1430f.chunk.js.map": "/todopro/static/js/630.f7f1430f.chunk.js.map",
     "909.7ee26abf.chunk.js.map": "/todopro/static/js/909.7ee26abf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.355cf3a7.css",
-    "static/js/main.71cfdc6d.js"
+    "static/js/main.b6a5697d.js"
   ]
 }

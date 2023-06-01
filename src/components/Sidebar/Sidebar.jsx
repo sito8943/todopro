@@ -53,9 +53,10 @@ function Sidebar({ open, handleClose, widthViewport }) {
   }, [languageState]);
 
   const printNotes = useCallback(() => {
-    return sortBy(Object.values(notesState), "id", false).map((note) => (
-      <Note key={note.id} {...note} />
-    ));
+    if (notesState !== null)
+      return sortBy(Object.values(notesState), "id", false).map((note) => (
+        <Note key={note.id} {...note} />
+      ));
   }, [notesState]);
 
   const createNewNote = useCallback(() => {

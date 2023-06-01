@@ -5,10 +5,17 @@
       "signIn": {
         "title": "Iniciar sesión"
       },
+      "buttons": {
+        "signIn": "Continuar"
+      },
       "inputs": {
         "user": {
           "label": "Usuario",
           "placeholder": "Introduce tu usuario"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Introduce tu contraseña"
         }
       }
     },

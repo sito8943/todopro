@@ -16,6 +16,7 @@ import { useLanguage } from "../../context/LanguageProvider";
 // components
 import Dialog from "./Dialog";
 import { useCallback } from "react";
+import { Button } from "@mui/material";
 
 function AuthDialog(props) {
   const theme = useTheme();
@@ -29,9 +30,16 @@ function AuthDialog(props) {
   }, [languageState]);
 
   const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleUser = useCallback((e) => {
     setUser(e.target.value);
+  }, []);
+
+  const handlePassword = useCallback((e) => {
+    setPassword(e.target.value);
   }, []);
 
   return visible ? (
@@ -40,6 +48,13 @@ function AuthDialog(props) {
         background: theme.palette.background.paper,
         minWidth: "350px",
         borderRadius: "5px",
+        h2: {
+          margin: 0,
+        },
+        alignItems: "flex-start",
+        div: {
+          width: "100%",
+        },
       })}`}
       transition="entrance"
     >
@@ -60,7 +75,22 @@ function AuthDialog(props) {
         label={authDialog.inputs.user.label}
         placeholder={authDialog.inputs.user.placeholder}
       />
-      <TextField />
+      <TextField
+        required
+        id="password"
+        type={showPassword ? "text" : "password"}
+        value={password}
+        onChange={handlePassword}
+        label={authDialog.inputs.password.label}
+        placeholder={authDialog.inputs.password.placeholder}
+      />
+      
+      <Button
+        sx={{ textTransform: "none", alignSelf: "flex-end" }}
+        variant="contained"
+      >
+        {authDialog.buttons.signIn}
+      </Button>
     </Dialog>
   ) : null;
 }

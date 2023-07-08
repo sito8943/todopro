@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/todopro/static/css/main.355cf3a7.css",
-    "main.js": "/todopro/static/js/main.b6a5697d.js",
+    "main.js": "/todopro/static/js/main.ac3ae421.js",
     "static/css/303.eb121a4e.chunk.css": "/todopro/static/css/303.eb121a4e.chunk.css",
     "static/js/303.29cde1c9.chunk.js": "/todopro/static/js/303.29cde1c9.chunk.js",
     "static/css/567.1562a557.chunk.css": "/todopro/static/css/567.1562a557.chunk.css",
@@ -19,7 +19,7 @@
     "static/media/poppins-latin-ext-400-normal.woff2": "/todopro/static/media/poppins-latin-ext-400-normal.4f38b4331448d2313adc.woff2",
     "index.html": "/todopro/index.html",
     "main.355cf3a7.css.map": "/todopro/static/css/main.355cf3a7.css.map",
-    "main.b6a5697d.js.map": "/todopro/static/js/main.b6a5697d.js.map",
+    "main.ac3ae421.js.map": "/todopro/static/js/main.ac3ae421.js.map",
     "303.eb121a4e.chunk.css.map": "/todopro/static/css/303.eb121a4e.chunk.css.map",
     "303.29cde1c9.chunk.js.map": "/todopro/static/js/303.29cde1c9.chunk.js.map",
     "567.1562a557.chunk.css.map": "/todopro/static/css/567.1562a557.chunk.css.map",
@@ -32,6 +32,6 @@
   },
   "entrypoints": [
     "static/css/main.355cf3a7.css",
-    "static/js/main.b6a5697d.js"
+    "static/js/main.ac3ae421.js"
   ]
 }

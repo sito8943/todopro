@@ -93,7 +93,7 @@ const App = () => {
     >
       <ThemeProvider theme={dark}>
         <CssBaseline />
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
             <Route
               path="/*"
